@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import WorkOrder from '../WorkOrder/WorkOrder.js'
+import AssignJob from '../AssignJob/AssignJob.js'
 
 import '../App.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,35 +17,40 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 class App extends Component {
-  state={
+  state = {
     drawerOpen: false
   }
 
-  toggleDrawer = (isOpen) => (isOpen) => {
+  toggleDrawer = (isOpen) => () => {
     this.setState({
       drawerOpen: isOpen
     });
   };
 
+  changePage = (path) => () => {
+    window.location = path
+  }
+
   render() {
     const sideList = (
-      <div>
-        <List>
-            <ListItem button >
-              <ListItemText primary="Create Work Order" />
-            </ListItem>
-            <ListItem button >
-              <ListItemText primary="Assign to job employee" />
-            </ListItem>
-        </List>
-        </div>)
+      <List>
+        <ListItem button onClick={this.changePage('/CreateWorkOrder')}>
+          <ListItemText primary="Create Work Order" />
+        </ListItem>
+        <ListItem button onClick={this.changePage('/AssignJob')}>
+        <ListItem button/>  
+          <NavLink to='/AssignJob'>Yo</NavLink>
+          <ListItemText primary="Assign to job employee" />
+        </ListItem>
+      </List>
+    )
 
     return (
       <div className="App">
         <AppBar position="static">
           <Toolbar>
             <IconButton color="inherit" aria-label="Menu">
-              <MenuIcon onClick={this.toggleDrawer(true)}/>
+              <MenuIcon onClick={this.toggleDrawer(true)} />
             </IconButton>
             <Button color="inherit">Norweld</Button>
           </Toolbar>
@@ -53,7 +60,6 @@ class App extends Component {
           open={this.state.drawerOpen}
           onClose={this.toggleDrawer(false)}
           onOpen={this.toggleDrawer(true)}
-          hysteresis={0.1}
         >
           <div
             tabIndex={0}
@@ -67,6 +73,8 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' component={WorkOrder} />
+          <Route exact path='/CreateWorkOrder' component={WorkOrder} />
+          <Route path='/AssignJob' component={AssignJob} />
         </Switch>
 
       </div>
