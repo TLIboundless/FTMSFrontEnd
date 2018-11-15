@@ -8,7 +8,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Checkbox from '@material-ui/core/Checkbox';
 
 class CheckboxList extends React.Component {
-  
+
   render() {
     let skillsList = ["Welding", "Driving a bulldozer"]
 
@@ -23,7 +23,7 @@ class CheckboxList extends React.Component {
                 disableRipple
               />
               <ListItemText primary={value} />
-            
+
             </ListItem>
           ))}
         </List>
