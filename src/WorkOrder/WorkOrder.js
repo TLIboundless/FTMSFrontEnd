@@ -84,7 +84,7 @@ class WorkOrder extends Component {
         <br />
         <Button variant="contained" color="primary" onClick={this.onSubmit}>
           Create work order
-          </Button>
+        </Button>
       </div>
     );
   }
