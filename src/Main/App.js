@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom'
+
+import WorkOrder from '../WorkOrder/WorkOrder.js'
+
 import '../App.css';
+import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-				<Button variant="contained" color="primary">
-      Hello World
-    </Button>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Button color="inherit">Norweld</Button>
+          </Toolbar>
+        </AppBar>
+        
+        <Switch>
+          <Route exact path='/' component={WorkOrder}/>
+        </Switch>
+
       </div>
     );
   }

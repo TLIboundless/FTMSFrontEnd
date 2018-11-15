@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import '../App.css';
 import CheckBoxList from './CheckBoxList.js'
 import Button from '@material-ui/core/Button';
@@ -17,7 +18,7 @@ class WorkOrder extends Component {
     });
   };
 
-  onSubmit = () =>{
+  onSubmit = () => {
     alert(JSON.stringify(this.state))
   }
 
@@ -41,28 +42,29 @@ class WorkOrder extends Component {
 
     return (
       <div className="App">
-      <form>
-        <TextField
-          id="standard-location"
-          label="Location"
-          value={this.state.location}
-          onChange={this.handleChange('location')}
-          margin="normal"
-          //fullWidth={true}
-        />
-        <br/>
-        <TextField
-          id="standard-deadline"
-          label="Deadline"
-          value={this.state.deadline}
-          onChange={this.handleChange('deadline')}
-          margin="normal"
-        />
-        <br/>
-        <br/>
-        <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle}/>
 
-        <TextField
+        <form>
+          <TextField
+            id="standard-location"
+            label="Location"
+            value={this.state.location}
+            onChange={this.handleChange('location')}
+            margin="normal"
+          //fullWidth={true}
+          />
+          <br />
+          <TextField
+            id="standard-deadline"
+            label="Deadline"
+            value={this.state.deadline}
+            onChange={this.handleChange('deadline')}
+            margin="normal"
+          />
+          <br />
+          <br />
+          <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle} />
+
+          <TextField
             id="standard-description"
             label="Description"
             value={this.state.description}
@@ -73,11 +75,11 @@ class WorkOrder extends Component {
           />
         </form>
 
-        <br/>
-          <Button variant="contained" color="primary" onClick={this.onSubmit}>
-            Create work order
+        <br />
+        <Button variant="contained" color="primary" onClick={this.onSubmit}>
+          Create work order
           </Button>
-        </div>
+      </div>
     );
   }
 }
