@@ -7,12 +7,33 @@ class WorkOrder extends Component {
   state = {
     location: '',
     deadline: '',
-    description: ''
+    description: '',
+    skillsReq: []
   }
 
-  handleChange = name => event => {
+  handleChange = input => event => {
     this.setState({
-      [name]: event.target.value,
+      [input]: event.target.value,
+    });
+  };
+
+  onSubmit = () =>{
+    alert(JSON.stringify(this.state))
+  }
+
+  handleToggle = value => () => {
+    const { skillsReq } = this.state;
+    const currentIndex = skillsReq.indexOf(value);
+    const newSkillsReq = [...skillsReq];
+
+    if (currentIndex === -1) {
+      newSkillsReq.push(value);
+    } else {
+      newSkillsReq.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      skillsReq: newSkillsReq,
     });
   };
 
@@ -39,7 +60,7 @@ class WorkOrder extends Component {
         />
         <br/>
         <br/>
-        <CheckBoxList/>
+        <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle}/>
 
         <TextField
             id="standard-description"
@@ -53,7 +74,7 @@ class WorkOrder extends Component {
         </form>
 
         <br/>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={this.onSubmit}>
             Create work order
           </Button>
         </div>
