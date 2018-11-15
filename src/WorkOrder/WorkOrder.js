@@ -53,13 +53,19 @@ class WorkOrder extends Component {
           //fullWidth={true}
           />
           <br />
+
+          <br />
           <TextField
-            id="standard-deadline"
+            id="datetime-local"
             label="Deadline"
             value={this.state.deadline}
             onChange={this.handleChange('deadline')}
-            margin="normal"
+            type="datetime-local"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
+
           <br />
           <br />
           <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle} />

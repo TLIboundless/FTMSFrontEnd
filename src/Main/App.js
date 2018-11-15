@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
 
 import WorkOrder from '../WorkOrder/WorkOrder.js'
 import AssignJob from '../AssignJob/AssignJob.js'
@@ -15,6 +14,8 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+
+// Check out Restful APIs
 
 class App extends Component {
   state = {
@@ -37,9 +38,8 @@ class App extends Component {
         <ListItem button onClick={this.changePage('/CreateWorkOrder')}>
           <ListItemText primary="Create Work Order" />
         </ListItem>
+
         <ListItem button onClick={this.changePage('/AssignJob')}>
-        <ListItem button/>  
-          <NavLink to='/AssignJob'>Yo</NavLink>
           <ListItemText primary="Assign to job employee" />
         </ListItem>
       </List>
@@ -73,7 +73,7 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' component={WorkOrder} />
-          <Route exact path='/CreateWorkOrder' component={WorkOrder} />
+          <Route path='/CreateWorkOrder' component={WorkOrder} />
           <Route path='/AssignJob' component={AssignJob} />
         </Switch>
 
