@@ -75,6 +75,7 @@ class App extends Component {
           <Route exact path='/' component={WorkOrder} />
           <Route path='/CreateWorkOrder' component={WorkOrder}/>
           <Route path='/AssignJob' component={AssignJob} />
+          <Route path='/ReviewTimesheet' compenent={ReviewTimesheet} />
         </Switch>
 
       </div>
