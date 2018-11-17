@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 
-import ReactDOM from 'react-dom';
+import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
 
-import {DisplayTimesheet} from "./DisplayTimesheet";
-
-// import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
-
-export default class ReviewTimesheet extends Component {
+class DisplayOrderlists extends Component {
     state = {
         orderList: []
     }
@@ -18,7 +14,9 @@ export default class ReviewTimesheet extends Component {
        const { orderList } = this.state;
        const currentIndex = orderList.indexOf(value);
        const newOrderList = [...orderList];
-       if (currentIndex !== -1) {
+       if (currentIndex === -1) {
+        newOrderList.push(value);
+       } else {
          newOrderList.splice(currentIndex, 1);
        }
 
@@ -27,12 +25,16 @@ export default class ReviewTimesheet extends Component {
        });
      };
 
-     render () {
-        return (
-            <div>
-                <h1>Order L:</h1>
-                <h1>Review Timesheet</h1>
-            </div>
-        );
+
+
+    // const {} = this.state;
+
+
+    // render () {
+    //     constant
+    //     return (
+    //       <div className="App">
+    //     )
     }
+
 }

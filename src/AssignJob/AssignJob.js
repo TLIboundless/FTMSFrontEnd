@@ -21,19 +21,13 @@ export default class AssignJob extends Component {
     groups: ['Hey']
   }
 
+  // Copies the json from database to 'groups'
   componentDidMount() {
-    fetch('localhost:8080/rest/task/all')
-      .then(res => alert(JSON.stringify(res)))
+    fetch('/rest/task/all')
+      .then(res => res.json())
+      .then(json => this.setState({ groups: json }));
   }
 
-  /*
-  async componentDidMount() {
-    const response = await fetch('rest/task/all')
-      alert(JSON.stringify(response))
-    // const body = await response.json();
-    // this.setState({ groups: body });
-  }
-  */
 
   // Need to send the data to the backend
   onSubmit = () => {
