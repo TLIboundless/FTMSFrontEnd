@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-
 import ReactDOM from 'react-dom';
+
+import Button from '@material-ui/core/Button';
 
 import {DisplayTimesheet} from "./DisplayTimesheet";
 
@@ -30,8 +31,29 @@ export default class ReviewTimesheet extends Component {
      render () {
         return (
             <div>
-                <h1>Order L:</h1>
-                <h1>Review Timesheet</h1>
+                <h1>Order L: Review Timesheet</h1>
+                <br/> <br/>
+
+                <h3>Start Time: 12:00</h3>
+                <h3>End Time: 15:30</h3>
+                <br/> <br/>
+
+                <Button variant="outlined" size="large">Job Description</Button>
+                <br/> <br/>
+                <Button variant="outlined" size="large">Tasks Completed</Button>
+                <br/> <br/>
+                <Button variant="outlined" size="large">Parts Used</Button>
+                <br/> <br/>
+                <br/> <br/>
+                <br/> <br/>
+
+
+                <Button variant="contained" size="large" color="primary">APPROVE</Button>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <Button variant="contained" size="large" color="primary">REJECT</Button>
+
             </div>
         );
     }
