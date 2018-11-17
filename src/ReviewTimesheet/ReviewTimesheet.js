@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 
-import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
+import ReactDOM from 'react-dom';
 
-class ReviewTimesheet extends Component {
+import {DisplayTimesheet} from "./DisplayTimesheet";
+
+// import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
+
+export default class ReviewTimesheet extends Component {
     state = {
         orderList: []
     }
@@ -14,9 +18,7 @@ class ReviewTimesheet extends Component {
        const { orderList } = this.state;
        const currentIndex = orderList.indexOf(value);
        const newOrderList = [...orderList];
-       if (currentIndex === -1) {
-         newSkillsReq.push(value);
-       } else {
+       if (currentIndex !== -1) {
          newOrderList.splice(currentIndex, 1);
        }
 
@@ -25,16 +27,7 @@ class ReviewTimesheet extends Component {
        });
      };
 
-
-
-    render () {}
-}
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {DisplayTimesheet} from "./DisplayTimesheet";
-
-export default class ReviewTimesheet extends React.Component {
-    render () {
+     render () {
         return (
             <div>
                 <h1>Order L:</h1>
@@ -43,5 +36,3 @@ export default class ReviewTimesheet extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<ReviewTimesheet/>, document.getElementById('app'));
