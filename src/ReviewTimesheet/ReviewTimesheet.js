@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 import React, { Component } from 'react'
 
 import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
 
 class ReviewTimesheet extends Component {
     state = {
-        orderList = []
+        orderList: []
     }
 
     onSubmit = () => {
@@ -28,18 +27,8 @@ class ReviewTimesheet extends Component {
 
 
 
-    const {} = this.state;
-
-
-    render () {
-        constant
-        return (
-          <div className="App">
-        )
-    }
-    
+    render () {}
 }
-=======
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {DisplayTimesheet} from "./DisplayTimesheet";
@@ -56,4 +45,3 @@ export default class ReviewTimesheet extends React.Component {
 }
 
 ReactDOM.render(<ReviewTimesheet/>, document.getElementById('app'));
->>>>>>> origin/master
