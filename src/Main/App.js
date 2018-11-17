@@ -43,6 +43,10 @@ class App extends Component {
         <ListItem button onClick={this.changePage('/AssignJob')}>
           <ListItemText primary="Assign to job employee" />
         </ListItem>
+
+        <ListItem button onClick={this.changePage('/ReviewTimesheet')}>
+            <ListItemText primary="Review Timesheets" />
+        </ListItem>
       </List>
     )
 
