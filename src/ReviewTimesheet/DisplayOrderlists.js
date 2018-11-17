@@ -1,11 +1,11 @@
-<<<<<<< HEAD
+
 import React, { Component } from 'react'
 
 import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
 
-class ReviewTimesheet extends Component {
+class DisplayOrderlists extends Component {
     state = {
-        orderList = []
+        orderList: []
     }
 
     onSubmit = () => {
@@ -16,7 +16,7 @@ class ReviewTimesheet extends Component {
        const currentIndex = orderList.indexOf(value);
        const newOrderList = [...orderList];
        if (currentIndex === -1) {
-         newSkillsReq.push(value);
+        newOrderList.push(value);
        } else {
          newOrderList.splice(currentIndex, 1);
        }
@@ -37,23 +37,5 @@ class ReviewTimesheet extends Component {
           <div className="App">
         )
     }
-    
-}
-=======
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {DisplayTimesheet} from "./DisplayTimesheet";
 
-export default class ReviewTimesheet extends React.Component {
-    render () {
-        return (
-            <div>
-                <h1>Order L:</h1>
-                <h1>Review Timesheet</h1>
-            </div>
-        );
-    }
 }
-
-ReactDOM.render(<ReviewTimesheet/>, document.getElementById('app'));
->>>>>>> origin/master

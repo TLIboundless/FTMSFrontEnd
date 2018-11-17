@@ -18,7 +18,22 @@ export default class AssignJob extends Component {
   state = {
     selectedWorkOrder: '',
     selectedEmployee: '',
+    groups: ['Hey']
   }
+
+  componentDidMount() {
+    fetch('localhost:8080/rest/task/all')
+      .then(res => alert(JSON.stringify(res)))
+  }
+
+  /*
+  async componentDidMount() {
+    const response = await fetch('rest/task/all')
+      alert(JSON.stringify(response))
+    // const body = await response.json();
+    // this.setState({ groups: body });
+  }
+  */
 
   // Need to send the data to the backend
   onSubmit = () => {

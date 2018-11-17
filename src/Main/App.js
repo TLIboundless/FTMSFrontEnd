@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import WorkOrder from '../WorkOrder/WorkOrder.js'
 import AssignJob from '../AssignJob/AssignJob.js'
+import ReviewTimesheet from '../ReviewTimesheet/ReviewTimesheet.js';
 
 import '../App.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -75,6 +76,7 @@ class App extends Component {
           <Route exact path='/' component={WorkOrder} />
           <Route path='/CreateWorkOrder' component={WorkOrder}/>
           <Route path='/AssignJob' component={AssignJob} />
+          <Route path='/ReviewTimesheet' compenent={ReviewTimesheet} />
         </Switch>
 
       </div>
