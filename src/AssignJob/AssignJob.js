@@ -30,8 +30,19 @@ export default class AssignJob extends Component {
 
 
   // Need to send the data to the backend
-  onSubmit = () => {
-    alert(JSON.stringify(this.state))
+  onSubmit = (event) => {
+    alert(JSON.stringify(this.state)) //Show what's going on
+
+    //Send! (At least, in theory) NOT YET WORKING
+    event.preventDefault();
+
+    fetch('/rest/task/insert', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({job_id: this.state.selectedWorkOrder.id, worker_id: this.state.selectedEmployee.id, name: this.state.selectedEmployee.name, start_time: null, end_time: null, duration: null})
+    });
   }
 
   // We need info from backend for the following 2 methods
