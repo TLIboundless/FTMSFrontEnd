@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import {DisplayTimesheet} from "./DisplayTimesheet";
+import {JobInformation} from "./JobInformation";
 
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
@@ -58,17 +58,13 @@ export default class ReviewTimesheet extends Component {
                     <Button variant="contained">Back</Button>
                 </div>
                 <h1>Order L: Review Timesheet</h1>
-                <br/> <br/>
+                <br/>
 
                 <h3>Start Time: 12:00</h3>
                 <h3>End Time: 15:30</h3>
                 <br/> <br/>
 
-                <Button variant="outlined" size="large">Job Description</Button>
-                <br/> <br/>
-                <Button variant="outlined" size="large">Tasks Completed</Button>
-                <br/> <br/>
-                <Button variant="outlined" size="large">Parts Used</Button>
+                <JobInformation/>
                 <br/> <br/>
                 <br/> <br/>
                 <br/> <br/>
