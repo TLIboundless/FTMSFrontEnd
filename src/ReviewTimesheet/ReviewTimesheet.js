@@ -50,14 +50,17 @@ export default class ReviewTimesheet extends Component {
 
      render () {
         return (
-            //To-do: figure out how to get order id, start time, and end time from back-end.
+            //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
+            //These values are currently hard-coded.
             <div>
                 <div style={{textAlign:"left"}}>
                     <br/>
                     &nbsp; &nbsp; &nbsp;
                     <Button variant="contained">Back</Button>
                 </div>
-                <h1>Order L: Review Timesheet</h1>
+                <h1>Review Timesheet</h1>
+                <h2>Work Order ID: 1234</h2>
+                <h2>Worker: Paul Gries</h2>
                 <br/>
 
                 <h3>Start Time: 12:00</h3>
@@ -68,7 +71,6 @@ export default class ReviewTimesheet extends Component {
                 <br/> <br/>
                 <br/> <br/>
                 <br/> <br/>
-
 
                 <Button variant="contained" size="large" color="primary">APPROVE</Button>
                 &nbsp;
