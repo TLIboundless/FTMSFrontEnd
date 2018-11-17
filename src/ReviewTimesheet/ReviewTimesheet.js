@@ -59,23 +59,24 @@ export default class ReviewTimesheet extends Component {
                     <Button variant="contained">Back</Button>
                 </div>
                 <h1>Review Timesheet</h1>
-                <h2>Work Order ID: 1234</h2>
-                <h2>Worker: Paul Gries</h2>
                 <br/>
 
-                <h3>Start Time: 12:00</h3>
-                <h3>End Time: 15:30</h3>
+                <h2>Work Order ID: 1234</h2>
+                <h2>Worker: Paul Gries</h2>
+
+                <h3>
+                    Start Time: 12:00
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    End Time: 15:30
+                </h3>
                 <br/> <br/>
 
                 <JobInformation/>
                 <br/> <br/>
                 <br/> <br/>
-                <br/> <br/>
 
                 <Button variant="contained" size="large" color="primary">APPROVE</Button>
-                &nbsp;
-                &nbsp;
-                &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <Button variant="contained" size="large" color="primary">REJECT</Button>
 
             </div>
