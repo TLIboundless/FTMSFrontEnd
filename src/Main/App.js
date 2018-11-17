@@ -73,7 +73,7 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' component={WorkOrder} />
-          <Route path='/CreateWorkOrder' component={WorkOrder} />
+          <Route path='/CreateWorkOrder' component={WorkOrder}/>
           <Route path='/AssignJob' component={AssignJob} />
         </Switch>
 
