@@ -7,9 +7,6 @@ import styleToImport from '../Utilities/Util.js'
 
 const chosenStyle = styleToImport.styleToImport
 
-
-// import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
-
 export default class ReviewTimesheet extends Component {
     state = {
         orderList: []
@@ -33,15 +30,33 @@ export default class ReviewTimesheet extends Component {
 
     handleApproveClick() {
         alert("Are you sure that you want to approve this timesheet?");
+        //To-do: Find some way of making this alert have yes/no buttons.
+        //Yes button takes you back to page of all orders, and edits database
+        //to represent timesheet approval.
+        //No button closes alert and keeps you on screen.
     }
 
     handleRejectClick() {
         alert("Are you sure that you want to reject this timesheet?");
+        //To-do: Find some way of making this alert have yes/no buttons.
+        //Yes button takes you back to page of all orders, and edits database
+        //to represent timesheet rejection.
+        //No button closes alert and keeps you on screen.
+    }
+
+    handleBackClick() {
+        //Change page to order page.
     }
 
      render () {
         return (
+            //To-do: figure out how to get order id, start time, and end time from back-end.
             <div>
+                <div style={{textAlign:"left"}}>
+                    <br/>
+                    &nbsp; &nbsp; &nbsp;
+                    <Button variant="contained">Back</Button>
+                </div>
                 <h1>Order L: Review Timesheet</h1>
                 <br/> <br/>
 
