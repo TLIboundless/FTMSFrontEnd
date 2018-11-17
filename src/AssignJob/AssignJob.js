@@ -37,12 +37,22 @@ export default class AssignJob extends Component {
     event.preventDefault();
 
     fetch('/rest/task/insert', {
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({job_id: this.state.selectedWorkOrder.id, worker_id: this.state.selectedEmployee.id, name: this.state.selectedEmployee.name, start_time: null, end_time: null, duration: null})
-    });
+      body: JSON.stringify({
+        job_id: this.state.selectedWorkOrder.id,
+        worker_id: this.state.selectedEmployee.id,
+        name: this.state.selectedEmployee.name,
+        start_time: '',
+        end_time: '',
+        duration: ''
+      })
+    })
+      .then((res) => res.json())
+      .then(json => this.setState({ groups: json }));
   }
 
   // We need info from backend for the following 2 methods
