@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
+import {DisplayTimesheet} from "./DisplayTimesheet";
 
 import Button from '@material-ui/core/Button';
+import styleToImport from '../Utilities/Util.js'
 
-import {DisplayTimesheet} from "./DisplayTimesheet";
+const chosenStyle = styleToImport.styleToImport
+
 
 // import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
 
@@ -27,6 +30,14 @@ export default class ReviewTimesheet extends Component {
          orderList: newOrderList
        });
      };
+
+    handleApproveClick() {
+        alert("Are you sure that you want to approve this timesheet?");
+    }
+
+    handleRejectClick() {
+        alert("Are you sure that you want to reject this timesheet?");
+    }
 
      render () {
         return (
