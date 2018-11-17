@@ -8,6 +8,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import styleToImport from '../Utilities/Util.js'
+
+const chosenStyle = styleToImport.styleToImport
+// styleToImport is an object with property styleToImport
+// alert(JSON.stringify(styleToImport))
 
 export default class AssignJob extends Component {
   state = {
@@ -42,11 +47,10 @@ export default class AssignJob extends Component {
   render() {
     const employeeList = this.fetchEmployees()
     const workOrderList = this.fetchWorkOrders()
-
     return (
       <div className="App">
-        <form>
-          <FormControl>
+        <form >
+          <FormControl style={chosenStyle}>
             <InputLabel>Choose employee</InputLabel>
             <Select
               input={<Input name="selectedEmployee" />}
@@ -59,7 +63,7 @@ export default class AssignJob extends Component {
             </Select>
           </FormControl>
           <br />
-          <FormControl>
+          <FormControl style={chosenStyle}>
             <InputLabel>Choose work order to assign</InputLabel>
             <Select
               input={<Input name="selectedWorkOrder" />}

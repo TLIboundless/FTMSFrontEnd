@@ -11,10 +11,11 @@ class CheckboxList extends React.Component {
 
   render() {
     let skillsList = ["Welding", "Driving a bulldozer"]
+    let checkboxStyle = {...this.props.chosenStyle, width: '100%'}
 
     return (
-      <div >
-        <List subheader={<ListSubheader>Skills required</ListSubheader>}>
+      <div style={checkboxStyle}>
+        <List subheader={<ListSubheader>Skills required</ListSubheader>} > 
           {skillsList.map(value => (
             <ListItem key={value} role={undefined} dense button onClick={this.props.handleToggle(value)}>
               <Checkbox

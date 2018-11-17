@@ -4,6 +4,11 @@ import '../App.css';
 import CheckBoxList from './CheckBoxList.js'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+
+import styleToImport from '../Utilities/Util.js'
+
+const chosenStyle = styleToImport.styleToImport
+
 class WorkOrder extends Component {
   state = {
     location: '',
@@ -39,7 +44,6 @@ class WorkOrder extends Component {
   };
 
   render() {
-
     return (
       <div className="App">
 
@@ -50,7 +54,7 @@ class WorkOrder extends Component {
             value={this.state.location}
             onChange={this.handleChange('location')}
             margin="normal"
-          //fullWidth={true}
+            style={chosenStyle}
           />
           <br />
 
@@ -64,11 +68,12 @@ class WorkOrder extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            style={chosenStyle}
           />
 
           <br />
           <br />
-          <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle} />
+          <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle} chosenStyle={chosenStyle}/>
 
           <TextField
             id="standard-description"
@@ -78,6 +83,7 @@ class WorkOrder extends Component {
             margin="normal"
             multiline={true}
             rows={4}
+            style={chosenStyle}
           />
         </form>
 
