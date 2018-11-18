@@ -19,7 +19,7 @@ class CheckboxList extends React.Component {
           {skillsList.map(value => (
             <ListItem key={value} role={undefined} dense button onClick={this.props.handleToggle(value)}>
               <Checkbox
-                checked={this.props.skillsReq.indexOf(value) !== -1}
+                checked={this.props.skills.indexOf(value) !== -1}
                 tabIndex={-1}
                 disableRipple
               />

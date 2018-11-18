@@ -69,8 +69,8 @@ export default class AssignJob extends Component {
 
   // We need info from backend for the following 2 methods
   fetchWorkOrders = () => {
-    let workOrder1 = { workorder_id: 111, client_id: 123, completed: 'No', deadline: '7 Dec 2019', description: 'Swim in AC', location: 'Toronto', skillsReq: ['Swimming'] };
-    let workOrder2 = { workorder_id: 222, client_id: 124, completed: 'No', deadline: '8 Dec 2020', description: 'Pet a dog in front of Ryerson', location: 'Toronto', skillsReq: ['Petting a dog'] };
+    let workOrder1 = { workorder_id: 111, client_id: 123, completed: 'No', deadline: '7 Dec 2019', description: 'Swim in AC', location: 'Toronto', skills: ['Swimming'] };
+    let workOrder2 = { workorder_id: 222, client_id: 124, completed: 'No', deadline: '8 Dec 2020', description: 'Pet a dog in front of Ryerson', location: 'Toronto', skills: ['Petting a dog'] };
     // return this.state.workOrderList
     return [workOrder1, workOrder2]
   };
