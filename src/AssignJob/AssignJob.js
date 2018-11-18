@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import styleToImport from '../Utilities/Util.js'
 
-const chosenStyle = styleToImport.styleToImport
+const chosenStyle = styleToImport.styleToImport;
 // styleToImport is an object with property styleToImport
 // alert(JSON.stringify(styleToImport))
 
@@ -19,7 +19,7 @@ export default class AssignJob extends Component {
     selectedWorkOrder: '',
     selectedEmployee: '',
     groups: ['Hey']
-  }
+  };
 
   // Copies the json from database to 'groups'
   componentDidMount() {
@@ -31,7 +31,7 @@ export default class AssignJob extends Component {
 
   // Need to send the data to the backend
   onSubmit = (event) => {
-    alert(JSON.stringify(this.state)) //Show what's going on
+    alert(JSON.stringify(this.state)); //Show what's going on
 
     //Send! (At least, in theory) NOT YET WORKING
     event.preventDefault();
@@ -51,30 +51,30 @@ export default class AssignJob extends Component {
     })
       .then((res) => res.json())
       .then(json => this.setState({ groups: json }));
-  }
+  };
 
   // We need info from backend for the following 2 methods
   fetchWorkOrders = () => {
-    let workOrder1 = { id: 111, location: 'Toronto', deadline: '7 Dec', skillsReq: ['Swimming'], description: 'Swim in AC' }
-    let workOrder2 = { id: 123, location: 'Ryerson', deadline: '8 Dec', skillsReq: ['Petting a dog'], description: 'Pet a dog in front of Ryerson' }
+    let workOrder1 = { id: 111, location: 'Toronto', deadline: '7 Dec', skillsReq: ['Swimming'], description: 'Swim in AC' };
+    let workOrder2 = { id: 123, location: 'Ryerson', deadline: '8 Dec', skillsReq: ['Petting a dog'], description: 'Pet a dog in front of Ryerson' };
 
     return [workOrder1, workOrder2]
-  }
+  };
 
   fetchEmployees = () => {
     let employee1 = { id: 10, name: 'Paul Gries' }
     let employee2 = { id: 20, name: 'Mike McCarthy' }
 
     return [employee1, employee2]
-  }
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-    const employeeList = this.fetchEmployees()
-    const workOrderList = this.fetchWorkOrders()
+    const employeeList = this.fetchEmployees();
+    const workOrderList = this.fetchWorkOrders();
     return (
       <div className="App">
         <form >
