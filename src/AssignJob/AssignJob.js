@@ -36,7 +36,6 @@ export default class AssignJob extends Component {
     //Send! (At least, in theory) NOT YET WORKING
     event.preventDefault();
 
-    fetch('/rest/task/insert', {
     fetch('/employees/add', {
       method: 'POST',
       headers: {
@@ -44,19 +43,8 @@ export default class AssignJob extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-<<<<<<< HEAD
-        job_id: this.state.selectedWorkOrder.id,
-        worker_id: this.state.selectedEmployee.id,
-        name: this.state.selectedEmployee.name,
-        start_time: '',
-        end_time: '',
-        duration: ''
-        firstName: 'John',
-        lastName: 'Doe',
-=======
         firstName: this.state.selectedEmployee,
         lastName: this.state.selectedWorkOrder,
->>>>>>> 2295d1b19fb98282af193b0352b696efaf255264
         workerType: 'Supervisor',
         email: (this.state.selectedEmployee + '@boundless.ca')
       })
