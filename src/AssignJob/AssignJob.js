@@ -23,7 +23,7 @@ export default class AssignJob extends Component {
 
   // Copies the json from database to 'groups'
   componentDidMount() {
-    fetch('/rest/task/all')
+    fetch('/task/all')
       .then(res => res.json())
       .then(json => this.setState({ groups: json }));
   }
@@ -36,19 +36,17 @@ export default class AssignJob extends Component {
     //Send! (At least, in theory) NOT YET WORKING
     event.preventDefault();
 
-    fetch('/rest/task/insert', {
+    fetch('/employees/add', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        job_id: this.state.selectedWorkOrder.id,
-        worker_id: this.state.selectedEmployee.id,
-        name: this.state.selectedEmployee.name,
-        start_time: '',
-        end_time: '',
-        duration: ''
+        firstName: 'John',
+        lastName: 'Doe',
+        workerType: 'Supervisor',
+        email: 'Email'
       })
     })
       .then((res) => res.json())
