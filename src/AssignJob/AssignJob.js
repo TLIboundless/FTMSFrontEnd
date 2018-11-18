@@ -36,7 +36,7 @@ export default class AssignJob extends Component {
     //Send! (At least, in theory) NOT YET WORKING
     event.preventDefault();
 
-    fetch('/rest/task/insert', {
+    fetch('/task/insert', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
