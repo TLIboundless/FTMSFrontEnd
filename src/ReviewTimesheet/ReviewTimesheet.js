@@ -75,9 +75,9 @@ export default class ReviewTimesheet extends Component {
                 <br/> <br/>
                 <br/> <br/>
 
-                <Button variant="contained" size="large" color="primary">APPROVE</Button>
+                <Button variant="contained" size="large" color="secondary">APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <Button variant="contained" size="large" color="primary">REJECT</Button>
+                <Button variant="contained" size="large" color="secondary.dark">REJECT</Button>
 
             </div>
         );

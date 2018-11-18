@@ -108,7 +108,7 @@ export default class AssignJob extends Component {
           </FormControl>
         </form>
         <br />
-        <Button variant="contained" color="primary" onClick={this.onSubmit}>
+        <Button variant="contained" color="secondary" onClick={this.onSubmit}>
           Send
       </Button>
       </div>
