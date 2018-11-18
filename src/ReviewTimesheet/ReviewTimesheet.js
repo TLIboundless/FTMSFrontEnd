@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import {JobInformation} from "./JobInformation";
-import {ConfirmationDialog} from "./ConfirmationDialog";
+//I commented out all instance of ConfirmationDialog. Will implement after demo.
+//import {ConfirmationDialog} from "./ConfirmationDialog.js";
 
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
@@ -13,42 +14,42 @@ export default class ReviewTimesheet extends Component {
         super(props);
         this.state = {orderList: [], accept: null};
         this.handleApproveClick = this.handleApproveClick.bind(this);
+        this.handleRejectClick = this.handleRejectClick.bind(this);
     }
 
-    onSubmit = () => {
-        alert(JSON.stringify(this.state))
-     }
-    handleToggle = value => () => {
-       const { orderList } = this.state;
-       const currentIndex = orderList.indexOf(value);
-       const newOrderList = [...orderList];
-       if (currentIndex !== -1) {
-         newOrderList.splice(currentIndex, 1);
-       }
+    /*dialogTitle = "";
+    dialogContent = "";*/
+    workOrderID = "";
+    workerName = "";
+    startTime = "";
+    endTime = "";
 
-       this.setState({
-         orderList: newOrderList
-       });
-     };
+    componentDidMount() {
+        fetch('/task/all')
+            .then(res => res.json())
+            .then(json => this.setState({ groups: json }));
+    }
 
-    handleApproveClick() {
-        this.setState({accept: true});
+    handleApproveClick = () => {
+        /*this.setState({accept: true, openDialog: true});
+        this.dialogTitle = 'Confirm Timesheet Approval';
+        this.dialogContent = 'Are you sure that you want to approve this timesheet?';*/
+
         //To-do: Find some way of making this alert have yes/no buttons.
         //Yes button takes you back to page of all orders, and edits database
         //to represent timesheet approval.
         //No button closes alert and keeps you on screen.
     }
 
-    handleRejectClick() {
-        alert("Are you sure that you want to reject this timesheet?");
+    handleRejectClick = () => {
+        /*this.setState({accept: false, openDialog: true});
+        this.dialogTitle = 'Confirm Timesheet Rejection';
+        this.dialogContent = 'Are you sure that you want to reject this timesheet?';*/
+
         //To-do: Find some way of making this alert have yes/no buttons.
         //Yes button takes you back to page of all orders, and edits database
         //to represent timesheet rejection.
         //No button closes alert and keeps you on screen.
-    }
-
-    handleBackClick() {
-        //Change page to order page.
     }
 
      render () {
@@ -56,11 +57,6 @@ export default class ReviewTimesheet extends Component {
             //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
             //These values are currently hard-coded.
             <div>
-                <div style={{textAlign:"left"}}>
-                    <br/>
-                    &nbsp; &nbsp; &nbsp;
-                    <Button variant="contained">Back</Button>
-                </div>
                 <h1>Review Timesheet</h1>
                 <br/>
 
@@ -78,9 +74,9 @@ export default class ReviewTimesheet extends Component {
                 <br/> <br/>
                 <br/> <br/>
 
-                <Button variant="contained" size="large" color="secondary" onClick={this.handleApproveClick}>APPROVE</Button>
+                <Button variant="contained" size="large" color="primary" onClick={this.handleApproveClick}>APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <Button variant="contained" size="large" color="secondary.dark">REJECT</Button>
+                <Button variant="contained" size="large" color="secondary.dark" onClick={this.handleRejectClick}>REJECT</Button>
 
             </div>
         );
