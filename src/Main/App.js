@@ -21,7 +21,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 class App extends Component {
   state = {
     drawerOpen: false
-  }
+  };
 
   toggleDrawer = (isOpen) => () => {
     this.setState({
@@ -31,7 +31,7 @@ class App extends Component {
 
   changePage = (path) => () => {
     window.location = path
-  }
+  };
 
   render() {
     const sideList = (
@@ -51,7 +51,7 @@ class App extends Component {
             <ListItemText primary="Review Timesheets" />
         </ListItem>
       </List>
-    )
+    );
 
     return (
       <div className="App">

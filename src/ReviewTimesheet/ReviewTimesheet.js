@@ -7,12 +7,12 @@ import {JobInformation} from "./JobInformation";
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
 
-const chosenStyle = styleToImport.styleToImport;
+const chosenStyle = styleToImport.styleToImport
 
 export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
-        this.state = {orderList: []/*, accept: null, openDialog: false*/};
+        this.state = {orderList: [], accept: null};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
@@ -76,7 +76,8 @@ export default class ReviewTimesheet extends Component {
 
                 <Button variant="contained" size="large" color="primary" onClick={this.handleApproveClick}>APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <Button variant="contained" size="large" color="primary" onClick={this.handleRejectClick}>REJECT</Button>
+                <Button variant="contained" size="large" color="secondary.dark" onClick={this.handleRejectClick}>REJECT</Button>
+
             </div>
         );
     }

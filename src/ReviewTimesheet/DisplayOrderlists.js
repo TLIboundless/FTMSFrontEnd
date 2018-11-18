@@ -5,11 +5,11 @@ import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
 class DisplayOrderlists extends Component {
     state = {
         orderList: []
-    }
+    };
 
     onSubmit = () => {
         alert(JSON.stringify(this.state))
-     }
+     };
     handleToggle = value => () => {
        const { orderList } = this.state;
        const currentIndex = orderList.indexOf(value);
@@ -35,6 +35,6 @@ class DisplayOrderlists extends Component {
     //     return (
     //       <div className="App">
     //     )
-    }
+    // }
 
 }
