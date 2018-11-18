@@ -23,8 +23,18 @@ class WorkOrder extends Component {
     });
   };
 
+  //TODO: Make this call backend workorder controller
   onSubmit = () => {
-    alert(JSON.stringify(this.state))
+    fetch('/work_orders/add', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    })
+      .then(alert('Success!'))
+      //alert(JSON.stringify(this.state))
   }
 
   handleToggle = value => () => {
