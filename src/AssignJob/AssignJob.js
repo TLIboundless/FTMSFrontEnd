@@ -43,10 +43,10 @@ export default class AssignJob extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        firstName: 'John',
-        lastName: 'Doe',
+        firstName: this.state.selectedEmployee,
+        lastName: this.state.selectedWorkOrder,
         workerType: 'Supervisor',
-        email: 'Email'
+        email: (this.state.selectedEmployee + '@boundless.ca')
       })
     })
       .then((res) => res.json())
