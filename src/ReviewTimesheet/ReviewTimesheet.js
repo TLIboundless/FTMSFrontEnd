@@ -78,11 +78,6 @@ export default class ReviewTimesheet extends Component {
                 <br/> <br/>
                 <br/> <br/>
 
-<<<<<<< HEAD
-                <Button variant="contained" size="large" color="secondary">APPROVE</Button>
-=======
-                <Button variant="contained" size="large" color="primary" onClick={this.handleApproveClick}>APPROVE</Button>
->>>>>>> ca7b8668ff6b28ec0eb2ee8ca05bc1d5150bbedd
                 <Button variant="contained" size="large" color="secondary" onClick={this.handleApproveClick}>APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <Button variant="contained" size="large" color="secondary.dark">REJECT</Button>
