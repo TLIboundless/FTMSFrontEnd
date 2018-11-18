@@ -44,9 +44,9 @@ class App extends Component {
           <ListItemText primary="Assign to job employee" />
         </ListItem>
 
-        //This page should actually only be accessed when you choose to review
+        {/* //This page should actually only be accessed when you choose to review
         //timesheets from the page that details the job.
-        //But this page is here for now because we don't have that other page yet.
+        //But this page is here for now because we don't have that other page yet. */}
         <ListItem button onClick={this.changePage('/ReviewTimesheet')}>
             <ListItemText primary="Review Timesheets" />
         </ListItem>

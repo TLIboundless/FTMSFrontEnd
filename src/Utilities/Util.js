@@ -2,6 +2,7 @@ import { isMobileOnly } from 'react-device-detect';
 
 const desktopStyle = {
   textAlign: 'center',
+  maxWidth: '50%',
   width: '50%',
   marginLeft: '25%',
   marginRight: '25%'
