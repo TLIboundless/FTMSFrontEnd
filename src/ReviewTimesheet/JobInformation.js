@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
 
-const chosenStyle = styleToImport.styleToImport
+const chosenStyle = styleToImport.styleToImport;
 
 export class JobInformation extends React.Component {
     handleDescriptionClick() {

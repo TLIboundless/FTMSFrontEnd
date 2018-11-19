@@ -7,12 +7,38 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { HashRouter } from 'react-router-dom';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+
+    "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
+    "fontSize": 20,
+    "fontWeightLight": 300,
+    "fontWeightRegular": 400,
+    "fontWeightMedium": 500
+  },
+  palette: {
+    primary: {
+      main: '#212121',
+    },
+    secondary: {
+      main: '#D50000',
+    },
+    type: 'dark',
+  },
+
+});
+
 ReactDOM.render(
 
   <div>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <MuiThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MuiThemeProvider>
   </div>
 
   , document.getElementById('root'));

@@ -10,73 +10,95 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import styleToImport from '../Utilities/Util.js'
 
-const chosenStyle = styleToImport.styleToImport
+const chosenStyle = styleToImport.styleToImport;
 // styleToImport is an object with property styleToImport
 // alert(JSON.stringify(styleToImport))
+
+const SUPERVISOR_ID = 999
+
+//Helper functions
+const getFullName = (obj) => {
+  return obj !== '' ? obj.firstName + " " + obj.lastName : ''
+}
+
+const getWorkOrderID = (obj) => {
+  return obj.workorder_id
+}
 
 export default class AssignJob extends Component {
   state = {
     selectedWorkOrder: '',
     selectedEmployee: '',
-    groups: ['Hey']
-  }
+    employeeList: ['No employee'],
+    workOrderList: ['No work order']
+  };
 
-  // Copies the json from database to 'groups'
   componentDidMount() {
-    fetch('/rest/task/all')
-      .then(res => res.json())
-      .then(json => this.setState({ groups: json }));
+    //Comment this line out once we have work orders in the DB. It's a hardcoded list.
+    this.setState({ workOrderList: this.fetchWorkOrders() })
+    // Once we have work orders in the DB, we can actually fetch them using the code below
+    // fetch('/work_orders/list')
+    //   .then(res => res.json())
+    //   .then(json => this.setState({ workOrderList: json }));
+
+    fetch('/employees/list')
+      .then((res) => res.json())
+      .then(json => this.setState({ employeeList: json }));
   }
 
-
-  // Need to send the data to the backend
   onSubmit = (event) => {
-    alert(JSON.stringify(this.state)) //Show what's going on
+    // alert(JSON.stringify(this.state)); //Show what's going on
 
     //Send! (At least, in theory) NOT YET WORKING
     event.preventDefault();
 
-    fetch('/rest/task/insert', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        job_id: this.state.selectedWorkOrder.id,
-        worker_id: this.state.selectedEmployee.id,
-        name: this.state.selectedEmployee.name,
-        start_time: '',
-        end_time: '',
-        duration: ''
+    fetch('/jobs/add', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          worker_id: this.state.selectedEmployee.id,
+          workorder_id: getWorkOrderID(this.state.selectedWorkOrder),
+          supervisor_id: SUPERVISOR_ID
+        })
       })
-    })
-      .then((res) => res.json())
-      .then(json => this.setState({ groups: json }));
-  }
+        .then(alert('Success! See http://localhost:8080/jobs/list'))
+  };
 
   // We need info from backend for the following 2 methods
   fetchWorkOrders = () => {
-    let workOrder1 = { id: 111, location: 'Toronto', deadline: '7 Dec', skillsReq: ['Swimming'], description: 'Swim in AC' }
-    let workOrder2 = { id: 123, location: 'Ryerson', deadline: '8 Dec', skillsReq: ['Petting a dog'], description: 'Pet a dog in front of Ryerson' }
-
+    let workOrder1 = { workorder_id: 111, client_id: 123, completed: 'No', deadline: '7 Dec 2019', description: 'Swim in AC', location: 'Toronto', skills: ['Swimming'] };
+    let workOrder2 = { workorder_id: 222, client_id: 124, completed: 'No', deadline: '8 Dec 2020', description: 'Pet a dog in front of Ryerson', location: 'Toronto', skills: ['Petting a dog'] };
+    // return this.state.workOrderList
     return [workOrder1, workOrder2]
-  }
+  };
 
   fetchEmployees = () => {
-    let employee1 = { id: 10, name: 'Paul Gries' }
-    let employee2 = { id: 20, name: 'Mike McCarthy' }
-
-    return [employee1, employee2]
-  }
+    return this.state.employeeList
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleChangeWorkOrder = event => {
+    const workOrderList = this.fetchWorkOrders();
+    const result = workOrderList.filter(workOrder => getWorkOrderID(workOrder) == event.target.value);
+    this.setState({ [event.target.name]: result[0] });
+  };
+
+  handleChangeEmployee = event => {
+    const employeeList = this.fetchEmployees();
+    const result = employeeList.filter(employee => getFullName(employee) == event.target.value);
+    this.setState({ [event.target.name]: result[0] });
+  }
+
+
   render() {
-    const employeeList = this.fetchEmployees()
-    const workOrderList = this.fetchWorkOrders()
+    const employeeList = this.fetchEmployees();
+    const workOrderList = this.fetchWorkOrders();
     return (
       <div className="App">
         <form >
@@ -84,11 +106,11 @@ export default class AssignJob extends Component {
             <InputLabel>Choose employee</InputLabel>
             <Select
               input={<Input name="selectedEmployee" />}
-              value={this.state.selectedEmployee}
-              onChange={this.handleChange}
+              value={getFullName(this.state.selectedEmployee)}
+              onChange={this.handleChangeEmployee}
             >
               {employeeList.map(employee => (
-                <MenuItem value={employee.name}>{employee.name}</MenuItem>
+                <MenuItem value={getFullName(employee)}>{getFullName(employee)}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -97,18 +119,18 @@ export default class AssignJob extends Component {
             <InputLabel>Choose work order to assign</InputLabel>
             <Select
               input={<Input name="selectedWorkOrder" />}
-              value={this.state.selectedWorkOrder}
-              onChange={this.handleChange}
+              value={getWorkOrderID(this.state.selectedWorkOrder)}
+              onChange={this.handleChangeWorkOrder}
             >
 
               {workOrderList.map(workOrder => (
-                <MenuItem value={workOrder.id}>{workOrder.id}</MenuItem>
+                <MenuItem value={getWorkOrderID(workOrder)}>{getWorkOrderID(workOrder)}</MenuItem>
               ))}
             </Select>
           </FormControl>
         </form>
         <br />
-        <Button variant="contained" color="primary" onClick={this.onSubmit}>
+        <Button variant="contained" color="secondary" onClick={this.onSubmit}>
           Send
       </Button>
       </div>

@@ -22,7 +22,7 @@ class TimeSheet extends Component {
     partQty: [],
     partCost: [],
     expanded: null //Which panel is expanded
-  }
+  };
 
   handleChange = input => event => {
     this.setState({
@@ -66,7 +66,7 @@ class TimeSheet extends Component {
 
           <ExpansionPanel id="task-panel" expanded={this.state.expanded === 'panel2'} onChange={this.handleChange('panel2')}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Text>Tasks</Text>
+
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
