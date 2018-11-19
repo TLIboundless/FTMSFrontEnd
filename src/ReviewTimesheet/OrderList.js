@@ -1,5 +1,5 @@
 import React, { component } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 // import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -11,7 +11,9 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import NotificationImportantIcon from "@material-ui/icons/NotificationImportant";
 import styleToImport from '../Utilities/Util.js'
 
-const chosenStyle = styleToImport.styleToImport;
+const chosenStyle = styleToImport.styleToImport
+
+// const chosenStyle = styleToImport.styleToImport;
 // const styles = theme => ({
 //   root: {
 //     width: "100%",
@@ -20,11 +22,10 @@ const chosenStyle = styleToImport.styleToImport;
 //   }
 // });
 
-class DisplayOrderlists extends React.Component {
+// export default class DisplayOrderlist extends Component {
 
-// function SimpleList(props) {
-//   const { classes } = props;
-  render(){
+function SimpleList(props) {
+  const { classes } = props;
   return (
     <div className="App">
       <List component="nav">
@@ -50,10 +51,9 @@ class DisplayOrderlists extends React.Component {
     </div>
   );
 }
-}
-//   DisplayOrderlist.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
 
+SimpleList.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-export default DisplayOrderlists;
+export default withStyles(chosenStyle)(SimpleList);
