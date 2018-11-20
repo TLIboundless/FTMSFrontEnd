@@ -19,11 +19,11 @@ const SUPERVISOR_ID = 999
 //Helper functions
 const getFullName = (obj) => {
   return obj !== '' ? obj.firstName + " " + obj.lastName : ''
-}
+};
 
 const getWorkOrderID = (obj) => {
   return obj.id
-}
+};
 
 export default class AssignJob extends Component {
   state = {
@@ -84,7 +84,7 @@ export default class AssignJob extends Component {
     const employeeList = this.fetchEmployees();
     const result = employeeList.filter(employee => getFullName(employee) == event.target.value);
     this.setState({ [event.target.name]: result[0] });
-  }
+  };
 
 
   render() {
