@@ -5,6 +5,7 @@ import WorkOrder from '../WorkOrder/WorkOrder.js'
 import AssignJob from '../AssignJob/AssignJob.js'
 import ReviewTimesheet from '../ReviewTimesheet/ReviewTimesheet.js';
 import DisplayOrderlists from '../ReviewTimesheet/DisplayOrderlists';
+import SubmitTimesheet from '../SubmitTimesheet/SubmitTimesheet.js';
 
 import '../App.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -90,6 +91,7 @@ class App extends Component {
           <Route path='/AssignJob' component={AssignJob} />
           <Route path='/DisplayOrderlists' component={DisplayOrderlists} />
           <Route path='/ReviewTimesheet' component={ReviewTimesheet} />
+          <Route path='/SubmitTimesheet' component={SubmitTimesheet} />
         </Switch>
 
       </div>
