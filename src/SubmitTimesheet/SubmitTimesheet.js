@@ -7,10 +7,14 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Table from '@material-ui/core/Table';
+import styleToImport from "../Utilities/Util";
 
-class TimeSheet extends Component {
+const chosenStyle = styleToImport.styleToImport;
+
+export default class SubmitTimesheet extends Component {
 
   state = {
+    job_id: '',
     location: '',
     start: '',
     end: '',
@@ -23,6 +27,16 @@ class TimeSheet extends Component {
     partCost: [],
     expanded: null //Which panel is expanded
   };
+
+  componentDidMount() {
+    fetch('/jobs/')
+      .then(res => res.json())
+      .then(json => this.setState({ workOrderList: json }))
+
+    fetch('/employees/list')
+      .then((res) => res.json())
+      .then(json => this.setState({ employeeList: json }));
+  }
 
   handleChange = input => event => {
     this.setState({
@@ -38,17 +52,19 @@ class TimeSheet extends Component {
             id="datetime-job-start"
             label="Start time"
             onChange={this.handleChange('start')}
+            type="datetime-local"
           />
           <TextField
             id="datetime-job-end"
             label="End time"
             onChange={this.handleChange('end')}
+            type="datetime-local"
           />
 
           <br/>
           <ExpansionPanel id="description-panel" expanded={this.state.expanded === 'panel1'} onChange={this.handleChange('panel1')}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Text>Description</Text>
+
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
