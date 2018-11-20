@@ -12,7 +12,8 @@ const chosenStyle = styleToImport.styleToImport
 export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
-        this.state = {timesheets: [], accept: null};
+        //currently hardcoding values for testing
+        this.state = {timesheets: ["apple"], accept: null, timesheetID: "1234"};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
@@ -24,10 +25,17 @@ export default class ReviewTimesheet extends Component {
     startTime = "";
     endTime = "";
 
+    /*componentDidMount() {
+        fetch('/timesheets/list')
+            .then(res => res.json())
+            .then(json => this.setState({ timesheets: json }))
+
+    }*/
+
     componentDidMount() {
         fetch('/timesheets/list')
             .then(res => res.json())
-            .then(json => this.setState({ timesheets: json }));
+            .then(json => this.setState({ timesheets: json }))
     }
 
     handleApproveClick = () => {
@@ -35,10 +43,15 @@ export default class ReviewTimesheet extends Component {
         this.dialogTitle = 'Confirm Timesheet Approval';
         this.dialogContent = 'Are you sure that you want to approve this timesheet?';*/
 
-        //To-do: Find some way of making this alert have yes/no buttons.
-        //Yes button takes you back to page of all orders, and edits database
-        //to represent timesheet approval.
-        //No button closes alert and keeps you on screen.
+        this.state.timesheetID = this.state.timesheetID.toString();
+        fetch('/timesheets/reject', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.timesheetID)
+        })
     }
 
     handleRejectClick = () => {
@@ -46,13 +59,19 @@ export default class ReviewTimesheet extends Component {
         this.dialogTitle = 'Confirm Timesheet Rejection';
         this.dialogContent = 'Are you sure that you want to reject this timesheet?';*/
 
-        //To-do: Find some way of making this alert have yes/no buttons.
-        //Yes button takes you back to page of all orders, and edits database
-        //to represent timesheet rejection.
-        //No button closes alert and keeps you on screen.
+        this.state.timesheetID = this.state.timesheetID.toString();
+        fetch('/timesheets/reject', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.timesheetID)
+        })
     }
 
-     render () {
+     render() {
+
         return (
             //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
             //These values are currently hard-coded.
@@ -73,7 +92,6 @@ export default class ReviewTimesheet extends Component {
                 <JobInformation/>
                 <br/> <br/>
                 <br/> <br/>
-                <Button variant="contained" size="large" color="primary" onClick={this.handleApproveClick}>APPROVE</Button>
                 <Button variant="contained" size="large" color="secondary" onClick={this.handleApproveClick}>APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <Button variant="contained" size="large" color="secondary.dark" onClick={this.handleRejectClick}>REJECT</Button>
