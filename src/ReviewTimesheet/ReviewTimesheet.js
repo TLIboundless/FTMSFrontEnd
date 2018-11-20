@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import {JobInformation} from "./JobInformation";
-//I commented out all instance of ConfirmationDialog. Will implement after demo.
-//import {ConfirmationDialog} from "./ConfirmationDialog.js";
 
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
@@ -13,29 +11,16 @@ export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
         //currently hardcoding values for testing
-        this.state = {timesheets: ["apple"], accept: null, timesheetID: "1234"};
+        this.state = {timesheets: [], accept: null, timesheetID: "1234"};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
 
-    /*dialogTitle = "";
-    dialogContent = "";*/
-    workOrderID = "";
-    workerName = "";
-    startTime = "";
-    endTime = "";
-
-    /*componentDidMount() {
-        fetch('/timesheets/list')
-            .then(res => res.json())
-            .then(json => this.setState({ timesheets: json }))
-
-    }*/
-
     componentDidMount() {
         fetch('/timesheets/list')
             .then(res => res.json())
-            .then(json => this.setState({ timesheets: json }))
+            .then(json => this.setState({ timesheets: JSON.stringify(json) }))
+
     }
 
     handleApproveClick = () => {
@@ -55,10 +40,6 @@ export default class ReviewTimesheet extends Component {
     }
 
     handleRejectClick = () => {
-        /*this.setState({accept: false, openDialog: true});
-        this.dialogTitle = 'Confirm Timesheet Rejection';
-        this.dialogContent = 'Are you sure that you want to reject this timesheet?';*/
-
         this.state.timesheetID = this.state.timesheetID.toString();
         fetch('/timesheets/reject', {
             method: 'POST',
@@ -71,11 +52,11 @@ export default class ReviewTimesheet extends Component {
     }
 
      render() {
-
         return (
             //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
             //These values are currently hard-coded.
             <div>
+                <p>{this.state.timesheets}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
