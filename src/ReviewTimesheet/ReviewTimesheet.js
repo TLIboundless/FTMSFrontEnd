@@ -12,7 +12,7 @@ const chosenStyle = styleToImport.styleToImport
 export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
-        this.state = {orderList: [], accept: null};
+        this.state = {timesheets: [], accept: null};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
@@ -25,9 +25,9 @@ export default class ReviewTimesheet extends Component {
     endTime = "";
 
     componentDidMount() {
-        fetch('/task/all')
+        fetch('/timesheets/list')
             .then(res => res.json())
-            .then(json => this.setState({ groups: json }));
+            .then(json => this.setState({ timesheets: json }));
     }
 
     handleApproveClick = () => {
