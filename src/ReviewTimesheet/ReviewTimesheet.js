@@ -10,7 +10,6 @@ const chosenStyle = styleToImport.styleToImport
 export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
-        //currently hardcoding values for testing
         this.state = {timesheets: ['No timesheets.'], employees: ['No employees.']};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
@@ -27,6 +26,7 @@ export default class ReviewTimesheet extends Component {
     }
 
     getWorkOrderID() {
+        //Return the work order ID for a given timesheet.
         return this.state.timesheets ? this.state.timesheets[0].slice(this.state.timesheets[0].search(":")+1) : "";
     }
 
@@ -45,7 +45,7 @@ export default class ReviewTimesheet extends Component {
             let id = this.state.timesheets[2].slice(this.state.timesheets[2].search(":") + 1,
                 this.state.timesheets[2].length - 2);
 
-             */
+            */
 
             for (i = 0; i < this.state.employees.length; i++) {
                 if (this.state.employees[i].slice(this.state.employees[i].search("id") + 4,
@@ -59,33 +59,32 @@ export default class ReviewTimesheet extends Component {
         } else return "";
     }
 
-
     handleApproveClick = () => {
-        /*this.setState({accept: true, openDialog: true});
-        this.dialogTitle = 'Confirm Timesheet Approval';
-        this.dialogContent = 'Are you sure that you want to approve this timesheet?';*/
-
-        this.state.timesheetID = this.state.timesheetID.toString();
-        fetch('/timesheets/reject', {
+        //Need to convert timesheetID to int because back-end approve method takes int parameter.
+        let timesheetID = parseInt(this.state.timesheets[1].slice(this.state.timesheets[1].search(":") + 1), 10);
+        fetch('/timesheets/approve', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state.timesheetID)
+            body: timesheetID
         })
+            .then(alert('See http://localhost:8080/timesheets/list'))
     }
 
     handleRejectClick = () => {
-        this.state.timesheetID = this.state.timesheetID.toString();
+        //Need to convert timesheetID to int because back-end approve method takes int parameter.
+        let timesheetID = parseInt(this.state.timesheets[1].slice(this.state.timesheets[1].search(":") + 1), 10);
         fetch('/timesheets/reject', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state.timesheetID)
+            body: timesheetID
         })
+            .then(alert('See http://localhost:8080/timesheets/list'))
     }
 
      render() {
@@ -94,7 +93,6 @@ export default class ReviewTimesheet extends Component {
             //These values are currently hard-coded.
             <div>
                 <p>{this.state.timesheets}</p>
-                <p>{this.state.employees}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
