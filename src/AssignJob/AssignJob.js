@@ -22,7 +22,7 @@ const getFullName = (obj) => {
 }
 
 const getWorkOrderID = (obj) => {
-  return obj.workorder_id
+  return obj.id
 }
 
 export default class AssignJob extends Component {
@@ -34,12 +34,9 @@ export default class AssignJob extends Component {
   };
 
   componentDidMount() {
-    //Comment this line out once we have work orders in the DB. It's a hardcoded list.
-    this.setState({ workOrderList: this.fetchWorkOrders() })
-    // Once we have work orders in the DB, we can actually fetch them using the code below
-    // fetch('/work_orders/list')
-    //   .then(res => res.json())
-    //   .then(json => this.setState({ workOrderList: json }));
+    fetch('/work_orders/list')
+      .then(res => res.json())
+      .then(json => this.setState({ workOrderList: json }))
 
     fetch('/employees/list')
       .then((res) => res.json())
@@ -47,32 +44,26 @@ export default class AssignJob extends Component {
   }
 
   onSubmit = (event) => {
-    // alert(JSON.stringify(this.state)); //Show what's going on
-
-    //Send! (At least, in theory) NOT YET WORKING
     event.preventDefault();
 
     fetch('/jobs/add', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          worker_id: this.state.selectedEmployee.id,
-          workorder_id: getWorkOrderID(this.state.selectedWorkOrder),
-          supervisor_id: SUPERVISOR_ID
-        })
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        worker_id: this.state.selectedEmployee.id,
+        workorder_id: getWorkOrderID(this.state.selectedWorkOrder),
+        supervisor_id: SUPERVISOR_ID
       })
-        .then(alert('Success! See http://localhost:8080/jobs/list'))
+    })
+      .then(alert('Success! See http://localhost:8080/jobs/list'))
   };
 
   // We need info from backend for the following 2 methods
   fetchWorkOrders = () => {
-    let workOrder1 = { workorder_id: 111, client_id: 123, completed: 'No', deadline: '7 Dec 2019', description: 'Swim in AC', location: 'Toronto', skills: ['Swimming'] };
-    let workOrder2 = { workorder_id: 222, client_id: 124, completed: 'No', deadline: '8 Dec 2020', description: 'Pet a dog in front of Ryerson', location: 'Toronto', skills: ['Petting a dog'] };
-    // return this.state.workOrderList
-    return [workOrder1, workOrder2]
+    return this.state.workOrderList
   };
 
   fetchEmployees = () => {
@@ -116,7 +107,7 @@ export default class AssignJob extends Component {
           </FormControl>
           <br />
           <FormControl style={chosenStyle}>
-            <InputLabel>Choose work order to assign</InputLabel>
+            <InputLabel>Choose work order</InputLabel>
             <Select
               input={<Input name="selectedWorkOrder" />}
               value={getWorkOrderID(this.state.selectedWorkOrder)}

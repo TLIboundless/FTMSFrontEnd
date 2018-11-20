@@ -23,7 +23,6 @@ class WorkOrder extends Component {
     });
   };
 
-  //TODO: Make this call backend workorder controller
   onSubmit = () => {
     this.state.skills = this.state.skills.toString()
     fetch('/work_orders/add', {
@@ -34,8 +33,7 @@ class WorkOrder extends Component {
       },
       body: JSON.stringify(this.state)
     })
-      .then(alert('Success!'))
-      //alert(JSON.stringify(this.state))
+      .then(alert('Success! Check http://localhost:8080/work_orders/list'))
   }
 
   handleToggle = value => () => {
@@ -84,7 +82,7 @@ class WorkOrder extends Component {
 
           <br />
           <br />
-          <CheckBoxList skills={this.state.skills} handleToggle={this.handleToggle} chosenStyle={chosenStyle}/>
+          <CheckBoxList skills={this.state.skills} handleToggle={this.handleToggle} chosenStyle={chosenStyle} />
 
           <TextField
             id="standard-description"
