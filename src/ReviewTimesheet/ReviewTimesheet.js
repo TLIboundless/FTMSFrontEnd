@@ -92,7 +92,6 @@ export default class ReviewTimesheet extends Component {
             //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
             //These values are currently hard-coded.
             <div>
-                <p>{this.state.timesheets}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
