@@ -1,40 +1,60 @@
-import React, { Component } from 'react'
+import React, { component } from "react";
+// import PropTypes from "prop-types";
+// import { withStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 
-import { AppBar, Button, Typography, CheckBoxList, } from '@material-ui/'
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import NotificationImportantIcon from "@material-ui/icons/NotificationImportant";
+import styleToImport from '../Utilities/Util.js'
 
-class DisplayOrderlists extends Component {
-    state = {
-        orderList: []
-    };
+const chosenStyle = styleToImport.styleToImport;
+// const styles = theme => ({
+//   root: {
+//     width: "100%",
+//     maxWidth: 360,
+//     backgroundColor: theme.palette.background.paper
+//   }
+// });
 
-    onSubmit = () => {
-        alert(JSON.stringify(this.state))
-     };
-    handleToggle = value => () => {
-       const { orderList } = this.state;
-       const currentIndex = orderList.indexOf(value);
-       const newOrderList = [...orderList];
-       if (currentIndex === -1) {
-        newOrderList.push(value);
-       } else {
-         newOrderList.splice(currentIndex, 1);
-       }
+class DisplayOrderlists extends React.Component {
 
-       this.setState({
-         orderList: newOrderList
-       });
-     };
-
-
-
-    // const {} = this.state;
-
-
-    // render () {
-    //     constant
-    //     return (
-    //       <div className="App">
-    //     )
-    // }
-
+// function SimpleList(props) {
+//   const { classes } = props;
+  render(){
+  return (
+    <div className="App">
+      <List component="nav">
+        <ListItem button>
+          <ListItemText primary="Order L" secondary="Pending Approval" />
+          <ListItemIcon>
+            <NotificationImportantIcon />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Order M" secondary="In progress" />
+          <ListItemIcon>
+            <CheckBoxOutlineBlankIcon />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Order N" secondary="Complete" />
+          <ListItemIcon>
+            <CheckBoxIcon />
+          </ListItemIcon>
+        </ListItem>
+      </List>
+    </div>
+  );
 }
+}
+//   DisplayOrderlist.propTypes = {
+//   classes: PropTypes.object.isRequired
+// };
+
+
+
+export default DisplayOrderlists;

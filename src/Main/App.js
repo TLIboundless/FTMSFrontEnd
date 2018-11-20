@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import WorkOrder from '../WorkOrder/WorkOrder.js'
 import AssignJob from '../AssignJob/AssignJob.js'
 import ReviewTimesheet from '../ReviewTimesheet/ReviewTimesheet.js';
+import DisplayOrderlists from '../ReviewTimesheet/DisplayOrderlists';
 
 import '../App.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -43,8 +44,12 @@ class App extends Component {
         <ListItem button onClick={this.changePage('/AssignJob')}>
           <ListItemText primary="Assign to job employee" />
         </ListItem>
+        <ListItem button onClick={this.changePage('/DisplayOrderlists')}>
+            <ListItemText primary="Lists of orders" />
+        </ListItem>
+      
 
-        {/* //This page should actually only be accessed when you choose to review
+       {/* //This page should actually only be accessed when you choose to review
         //timesheets from the page that details the job.
         //But this page is here for now because we don't have that other page yet. */}
         <ListItem button onClick={this.changePage('/ReviewTimesheet')}>
@@ -83,6 +88,7 @@ class App extends Component {
           <Route exact path='/' component={WorkOrder} />
           <Route path='/CreateWorkOrder' component={WorkOrder}/>
           <Route path='/AssignJob' component={AssignJob} />
+          <Route path='/DisplayOrderlists' component={DisplayOrderlists} />
           <Route path='/ReviewTimesheet' component={ReviewTimesheet} />
         </Switch>
 

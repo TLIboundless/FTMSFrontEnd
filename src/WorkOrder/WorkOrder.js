@@ -14,7 +14,7 @@ class WorkOrder extends Component {
     location: '',
     deadline: '',
     description: '',
-    skillsReq: []
+    skills: []
   }
 
   handleChange = input => event => {
@@ -24,22 +24,31 @@ class WorkOrder extends Component {
   };
 
   onSubmit = () => {
-    alert(JSON.stringify(this.state))
+    this.state.skills = this.state.skills.toString()
+    fetch('/work_orders/add', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    })
+      .then(alert('Success! Check http://localhost:8080/work_orders/list'))
   }
 
   handleToggle = value => () => {
-    const { skillsReq } = this.state;
-    const currentIndex = skillsReq.indexOf(value);
-    const newSkillsReq = [...skillsReq];
+    const { skills } = this.state;
+    const currentIndex = skills.indexOf(value);
+    const newskills = [...skills];
 
     if (currentIndex === -1) {
-      newSkillsReq.push(value);
+      newskills.push(value);
     } else {
-      newSkillsReq.splice(currentIndex, 1);
+      newskills.splice(currentIndex, 1);
     }
 
     this.setState({
-      skillsReq: newSkillsReq,
+      skills: newskills,
     });
   };
 
@@ -73,7 +82,7 @@ class WorkOrder extends Component {
 
           <br />
           <br />
-          <CheckBoxList skillsReq={this.state.skillsReq} handleToggle={this.handleToggle} chosenStyle={chosenStyle}/>
+          <CheckBoxList skills={this.state.skills} handleToggle={this.handleToggle} chosenStyle={chosenStyle} />
 
           <TextField
             id="standard-description"

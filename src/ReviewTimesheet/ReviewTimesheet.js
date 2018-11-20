@@ -73,8 +73,8 @@ export default class ReviewTimesheet extends Component {
                 <JobInformation/>
                 <br/> <br/>
                 <br/> <br/>
-
                 <Button variant="contained" size="large" color="primary" onClick={this.handleApproveClick}>APPROVE</Button>
+                <Button variant="contained" size="large" color="secondary" onClick={this.handleApproveClick}>APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <Button variant="contained" size="large" color="secondary.dark" onClick={this.handleRejectClick}>REJECT</Button>
 
