@@ -17,6 +17,9 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Image from 'material-ui-image';
+
+import logo from "../ftms.png";
 
 // Check out Restful APIs
 
@@ -48,7 +51,7 @@ class App extends Component {
         <ListItem button onClick={this.changePage('/DisplayOrderlists')}>
             <ListItemText primary="Lists of orders" />
         </ListItem>
-      
+
 
        {/* //This page should actually only be accessed when you choose to review
         //timesheets from the page that details the job.
@@ -66,7 +69,7 @@ class App extends Component {
             <IconButton color="inherit" aria-label="Menu">
               <MenuIcon onClick={this.toggleDrawer(true)} />
             </IconButton>
-            <Button color="inherit">Norweld</Button>
+              <img src={logo} />
           </Toolbar>
         </AppBar>
 

@@ -24,10 +24,25 @@ const theme = createMuiTheme({
       main: '#212121',
     },
     secondary: {
-      main: '#D50000',
+      main: '#b28900',
     },
     type: 'dark',
   },
+  overrides: {
+    MuiButton: {
+        // Name of the rule
+        secondary: {
+          // Some CSS
+          background: 'linear-gradient(45deg, #fbc02d 30%, #b28900 90%)',
+          borderRadius: 3,
+          border: 0,
+          color: 'white',
+          height: 48,
+          padding: '0 30px',
+          boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        },
+      },
+    },
 
 });
 
