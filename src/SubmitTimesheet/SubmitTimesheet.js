@@ -28,7 +28,7 @@ export default class SubmitTimesheet extends Component {
 
   componentDidMount() {
     // Get associated work order (based on id, to fetch description)
-    fetch('/work_orders/get_from_id/' + this.state.work_order_id, {
+    fetch('/work_orders/get_from_work_orders_id/' + this.state.work_order_id, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -37,11 +37,11 @@ export default class SubmitTimesheet extends Component {
     })
       .then(res => res.json())
       .then(json => this.setState({
-        description: json.description,
-        location: json.location
+        description: json[0].description,
+        location: json[0].location
       }));
 
-    fetch('/work_orders/get_from_id/' + this.state.job_id, {
+    fetch('/jobs/get_from_jobs_id/' + this.state.job_id, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -54,7 +54,7 @@ export default class SubmitTimesheet extends Component {
       }));
 
     // Get tasks
-    fetch('/task/get/' + this.state.job_id, {
+    fetch('/task/get_from_jobs_id/' + this.state.job_id, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -97,6 +97,7 @@ export default class SubmitTimesheet extends Component {
   };
 
   render() {
+
     return (
       <div className="App">
         <form>
@@ -149,8 +150,6 @@ export default class SubmitTimesheet extends Component {
 
             <ExpansionPanelDetails>
               <Table>
-
-
               </Table>
             </ExpansionPanelDetails>
           </ExpansionPanel>
