@@ -33,20 +33,12 @@ export default class ReviewTimesheet extends Component {
     getWorkerName() {
         let i = 0;
         if (this.state.timesheets.length > 1 && this.state.employees) {
-            /* First get worker ID.
-            We have to hardcode this for testing purposes because there are currently no employees in the database
-            with ids that match the worker id given by the only timesheet in the database.
-             */
-
+            // First get worker ID.
             let id = "1";
+            //let id = this.state.timesheets[2].slice(this.state.timesheets[2].search(":") + 1,
+                //this.state.timesheets[2].length - 2);
 
-            /* Replace the above line with the following code when done testing.
-
-            let id = this.state.timesheets[2].slice(this.state.timesheets[2].search(":") + 1,
-                this.state.timesheets[2].length - 2);
-
-            */
-
+            //Now find the name of the worker that matches that ID.
             for (i = 0; i < this.state.employees.length; i++) {
                 if (this.state.employees[i].slice(this.state.employees[i].search("id") + 4,
                     this.state.employees[i].search("lastName") - 2) === id) {
@@ -89,7 +81,7 @@ export default class ReviewTimesheet extends Component {
 
      render() {
         return (
-            //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
+            //To-do: figure out how to get start time and end time from back-end.
             //These values are currently hard-coded.
             <div>
                 <h1>Review Timesheet</h1>
