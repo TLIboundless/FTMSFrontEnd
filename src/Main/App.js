@@ -50,7 +50,9 @@ class App extends Component {
         <ListItem button onClick={this.changePage('/DisplayOrderlists')}>
             <ListItemText primary="Lists of orders" />
         </ListItem>
-
+        <ListItem button onClick={this.changePage('/SubmitTimesheet')}>
+          <ListItemText primary="Submit timesheet" />
+        </ListItem>
 
        {/* //This page should actually only be accessed when you choose to review
         //timesheets from the page that details the job.
