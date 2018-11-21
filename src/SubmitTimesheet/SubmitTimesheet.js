@@ -14,14 +14,13 @@ const chosenStyle = styleToImport.styleToImport;
 export default class SubmitTimesheet extends Component {
 
   state = {
-    job_id: '',
+    job_id: '1',
     location: '',
     start: '',
     end: '',
     description: '',
     taskList: [], // list of tasks
     partsList: [], // List of parts
-    expanded: null // Which panel is expanded
   };
 
   componentDidMount() {
@@ -75,9 +74,9 @@ export default class SubmitTimesheet extends Component {
           />
           <br/>
           <br/>
-          <ExpansionPanel id="description-panel" expanded={this.state.expanded === 'panel1'} onChange={this.handleChange('panel1')} style={chosenStyle}>
+          <ExpansionPanel id="description-panel" onChange={this.handleChange('panel1')} style={chosenStyle}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-
+              <text>Description</text>
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
@@ -91,12 +90,11 @@ export default class SubmitTimesheet extends Component {
                 style={chosenStyle}
               />
             </ExpansionPanelDetails>
-
           </ExpansionPanel>
 
-          <ExpansionPanel id="task-panel" expanded={this.state.expanded === 'panel2'} onChange={this.handleChange('panel2')} style={chosenStyle}>
+          <ExpansionPanel id="task-panel" onChange={this.handleChange('panel2')} style={chosenStyle}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-
+              <text>Tasks</text>
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
@@ -104,7 +102,6 @@ export default class SubmitTimesheet extends Component {
 
               </Table>
             </ExpansionPanelDetails>
-
           </ExpansionPanel>
 
         </form>
