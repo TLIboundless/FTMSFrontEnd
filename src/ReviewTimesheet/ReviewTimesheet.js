@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import {JobInformation} from "./JobInformation";
+import {JobInformation} from "../Job In Progress/JobInformation";
 
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
