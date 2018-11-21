@@ -19,23 +19,33 @@ export default class SubmitTimesheet extends Component {
     start: '',
     end: '',
     description: '',
-    taskList: [],
-    taskStartTime: [],
-    taskEndTime: [],
-    parts: [],
-    partQty: [],
-    partCost: [],
-    expanded: null //Which panel is expanded
+    taskList: [], // list of tasks
+    partsList: [], // List of parts
+    expanded: null // Which panel is expanded
   };
 
   componentDidMount() {
-    fetch('/jobs/')
+    fetch('/jobs/fromID', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: {id: this.state.job_id}
+    })
       .then(res => res.json())
-      .then(json => this.setState({ workOrderList: json }))
+      .then(json => this.setState({ description: json.description }));
 
-    fetch('/employees/list')
+    fetch('/task/get_task', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: {id: this.state.job_id}
+    })
       .then((res) => res.json())
-      .then(json => this.setState({ employeeList: json }));
+      .then(json => this.setState({ taskList: json}));
   }
 
   handleChange = input => event => {
@@ -53,16 +63,19 @@ export default class SubmitTimesheet extends Component {
             label="Start time"
             onChange={this.handleChange('start')}
             type="datetime-local"
+            style={chosenStyle}
           />
+          <br/>
           <TextField
             id="datetime-job-end"
             label="End time"
             onChange={this.handleChange('end')}
             type="datetime-local"
+            style={chosenStyle}
           />
-
           <br/>
-          <ExpansionPanel id="description-panel" expanded={this.state.expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+          <br/>
+          <ExpansionPanel id="description-panel" expanded={this.state.expanded === 'panel1'} onChange={this.handleChange('panel1')} style={chosenStyle}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 
             </ExpansionPanelSummary>
@@ -75,12 +88,13 @@ export default class SubmitTimesheet extends Component {
                 onChange={this.handleChange('description')}
                 margin="normal"
                 multiline={true}
+                style={chosenStyle}
               />
             </ExpansionPanelDetails>
 
           </ExpansionPanel>
 
-          <ExpansionPanel id="task-panel" expanded={this.state.expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+          <ExpansionPanel id="task-panel" expanded={this.state.expanded === 'panel2'} onChange={this.handleChange('panel2')} style={chosenStyle}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 
             </ExpansionPanelSummary>
