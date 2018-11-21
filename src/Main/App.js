@@ -69,9 +69,7 @@ class App extends Component {
             <IconButton color="inherit" aria-label="Menu">
               <MenuIcon onClick={this.toggleDrawer(true)} />
             </IconButton>
-            <Button color="inherit">
               <img src={logo} />
-        </Button>
           </Toolbar>
         </AppBar>
 
