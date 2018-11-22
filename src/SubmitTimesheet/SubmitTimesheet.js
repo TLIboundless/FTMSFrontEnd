@@ -109,8 +109,9 @@ export default class SubmitTimesheet extends Component {
       body: JSON.stringify({
         start_time: "",
         end_time: "",
+        duration: "",
         job_id: this.state.job_id,
-        name: ""
+        name: "New Task"
       })
     })
       .then(() => this.fetchTasks())
