@@ -10,15 +10,17 @@ const chosenStyle = styleToImport.styleToImport
 export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
-        this.state = {timesheets: ['No timesheets.'], employees: ['No employees.']};
+        //Hard-coded job ID. Want that to be passed in as props of ReviewTimesheet component instance.
+        this.state = {timesheets: ['No timesheets.'], employees: ['No employees.'], jobID: 0};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
 
     componentDidMount() {
-        fetch('/timesheets/list')
+        const jobID = parseInt(this.state.jobID);
+        fetch('/timesheets/get_from_jobs_id/{jobID}')
             .then(res => res.json())
-            .then(json => this.setState({ timesheets: JSON.stringify(json).split(",").slice(4) }));
+            .then(json => this.setState({ timesheets: JSON.stringify(json).split("},") }));
 
         fetch('/employees/list')
             .then((res) => res.json())
@@ -33,20 +35,11 @@ export default class ReviewTimesheet extends Component {
     getWorkerName() {
         let i = 0;
         if (this.state.timesheets.length > 1 && this.state.employees) {
-            /* First get worker ID.
-            We have to hardcode this for testing purposes because there are currently no employees in the database
-            with ids that match the worker id given by the only timesheet in the database.
-             */
-
-            let id = "1";
-
-            /* Replace the above line with the following code when done testing.
-
+            // First get worker ID.
             let id = this.state.timesheets[2].slice(this.state.timesheets[2].search(":") + 1,
                 this.state.timesheets[2].length - 2);
 
-            */
-
+            //Now find the name of the worker that matches that ID.
             for (i = 0; i < this.state.employees.length; i++) {
                 if (this.state.employees[i].slice(this.state.employees[i].search("id") + 4,
                     this.state.employees[i].search("lastName") - 2) === id) {
@@ -89,9 +82,10 @@ export default class ReviewTimesheet extends Component {
 
      render() {
         return (
-            //To-do: figure out how to get work order ID, worker name, start time, and end time from back-end.
+            //To-do: figure out how to get start time and end time from back-end.
             //These values are currently hard-coded.
             <div>
+                <p>{this.state.timesheets}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
