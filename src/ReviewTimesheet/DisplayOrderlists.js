@@ -7,18 +7,15 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import NotificationImportantIcon from "@material-ui/icons/NotificationImportant";
 import styleToImport from '../Utilities/Util.js'
 
+import FormControl from '@material-ui/core/FormControl';
+
+
 const chosenStyle = styleToImport.styleToImport;
-// const styles = theme => ({
-//   root: {
-//     width: "100%",
-//     maxWidth: 360,
-//     backgroundColor: theme.palette.background.paper
-//   }
-// });
+
 
 class DisplayOrderlists extends React.Component {
 
@@ -27,6 +24,8 @@ class DisplayOrderlists extends React.Component {
   render(){
   return (
     <div className="App">
+    <form>
+    <FormControl style={chosenStyle}>
       <List component="nav">
         <ListItem button>
           <ListItemText primary="Order L" secondary="Pending Approval" />
@@ -35,9 +34,9 @@ class DisplayOrderlists extends React.Component {
           </ListItemIcon>
         </ListItem>
         <ListItem button>
-          <ListItemText primary="Order M" secondary="In progress" />
+          <ListItemText primary="Order M" secondary="Rejected" />
           <ListItemIcon>
-            <CheckBoxOutlineBlankIcon />
+            <HighlightOffIcon />
           </ListItemIcon>
         </ListItem>
         <ListItem button>
@@ -47,6 +46,8 @@ class DisplayOrderlists extends React.Component {
           </ListItemIcon>
         </ListItem>
       </List>
+      </FormControl>
+      </form>
     </div>
   );
 }

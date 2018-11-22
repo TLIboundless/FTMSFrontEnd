@@ -6,6 +6,7 @@ import AssignJob from '../AssignJob/AssignJob.js'
 import ReviewTimesheet from '../ReviewTimesheet/ReviewTimesheet.js';
 import DisplayOrderlists from '../ReviewTimesheet/DisplayOrderlists';
 import SubmitTimesheet from '../SubmitTimesheet/SubmitTimesheet.js';
+import SpecificOrder from '../ReviewTimesheet/SpecificOrder.js';
 
 import '../App.css';
 import AppBar from '@material-ui/core/AppBar';
@@ -53,6 +54,9 @@ class App extends Component {
         <ListItem button onClick={this.changePage('/SubmitTimesheet')}>
           <ListItemText primary="Submit Timesheet" />
         </ListItem>
+        <ListItem button onClick={this.changePage('/SpecificOrder')}>
+          <ListItemText primary="Specific Order" />
+        </ListItem>
 
        {/* //This page should actually only be accessed when you choose to review
         //timesheets from the page that details the job.
@@ -96,6 +100,7 @@ class App extends Component {
           <Route path='/DisplayOrderlists' component={DisplayOrderlists} />
           <Route path='/ReviewTimesheet' component={ReviewTimesheet} />
           <Route path='/SubmitTimesheet' component={SubmitTimesheet} />
+          <Route path='/SpecificOrder' component={SpecificOrder} />
         </Switch>
 
       </div>
