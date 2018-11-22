@@ -25,8 +25,7 @@ export class JobInformation extends React.Component {
             .then((res) => res.json())
             .then(json => this.setState({ tasks: JSON.stringify(json).split("},") }));
 
-        //fetch('/parts/get_parts_from_job_id/' + this.props.jobID)
-        fetch('/parts/list')
+        fetch('/parts/get_parts_from_job_id/' + this.props.jobID)
             .then((res) => res.json())
             .then(json => this.setState({ parts: JSON.stringify(json).split("},") }));
 
@@ -44,7 +43,7 @@ export class JobInformation extends React.Component {
         let i = 0;
         for (i = 0; i < this.state.tasks.length; i++) {
             s += 'Name: ' + this.state.tasks[i].slice(this.state.tasks[i].search("name") + 6,
-                this.state.tasks[i].search("startTime") - 2) + ', Duration: ' +
+                this.state.tasks[i].search("jobId") - 2) + ', Duration: ' +
                 this.state.tasks[i].slice(this.state.tasks[i].search("duration") + 10,
                 this.state.tasks[i].search("name") - 2) + '\r'
         }
