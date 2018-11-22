@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
+
 
 import Button from '@material-ui/core/Button';
 import styleToImport from '../Utilities/Util.js'
 import { JobInformation } from "../Job In Progress/JobInformation";
-import { withRouter } from "react-router-dom";
+
 
 const chosenStyle = styleToImport.styleToImport
 
@@ -38,7 +38,7 @@ export default class SpecificOrder extends Component {
         <h1>Pending Approval</h1>
 
         <h2>
-          Workers on task: 0
+          Workers on task: 3
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           Workers awaiting approval: 1
                 </h2>
@@ -46,11 +46,13 @@ export default class SpecificOrder extends Component {
 
         <br /> <br />
 
-        <Button variant="contained" size="large" color="primary" onClick={this.handleTimesheetClick}>Review Pending Timesheet</Button>
+        <Button variant="contained" size="large" color="secondary" onClick={this.handleTimesheetClick}>Review Pending Timesheet</Button>
 
         <br /> <br />
+          <br /> <br />
 
-        <JobInformation />
+
+          <JobInformation />
         <br /> <br />
         <br /> <br />
 

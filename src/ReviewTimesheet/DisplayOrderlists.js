@@ -16,30 +16,57 @@ import FormControl from '@material-ui/core/FormControl';
 
 const chosenStyle = styleToImport.styleToImport;
 
+//Helper function ()
+// const getApprovedTs = (obj) => {
+//   return obj !== '' ? obj.firstName + " " + obj.lastName : ''
+// };
+// const getRejectedTs = (obj) => {
+//   return obj !== '' ? obj.firstName + " " + obj.lastName : ''
+// };
+// const getPendingTs = (obj) => {
+//   return obj !== '' ? obj.firstName + " " + obj.lastName : ''
+// };
+
+
 
 class DisplayOrderlists extends React.Component {
 
-// function SimpleList(props) {
-//   const { classes } = props;
+// componentDidMount() {
+        
+//         fetch('/timesheets/get_pending_timesheets_from_work_order_id/' + this.props.workOrderID)
+//             .then(res => res.json())
+//             .then(json => this.setState({ timesheet: JSON.stringify(json).split("},").slice(0, 1) }));
+
+//         fetch('/employees/list')
+//             .then((res) => res.json())
+//             .then(json => this.setState({ employees: JSON.stringify(json).split("},") }));
+//     }
+handlePendingClick = () => {
+  this.props.history.push('/SpecificOrder');
+};
+
+handleNotpendingClick = () => {
+  this.props.history.push('/ReviewTimesheet');
+};
   render(){
   return (
     <div className="App">
     <form>
     <FormControl style={chosenStyle}>
       <List component="nav">
-        <ListItem button>
+      <ListItem button variant="contained" size="large" color="primary" onClick={this.handlePendingClick}>
           <ListItemText primary="Order L" secondary="Pending Approval" />
           <ListItemIcon>
             <NotificationImportantIcon />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button variant="contained" size="large" color="primary" onClick={this.handlePendingClick}>
           <ListItemText primary="Order M" secondary="Rejected" />
           <ListItemIcon>
             <HighlightOffIcon />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button variant="contained" size="large" color="primary" onClick={this.handleNotpendingClick}>
           <ListItemText primary="Order N" secondary="Complete" />
           <ListItemIcon>
             <CheckBoxIcon />
@@ -52,9 +79,6 @@ class DisplayOrderlists extends React.Component {
   );
 }
 }
-//   DisplayOrderlist.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
 
 
 
