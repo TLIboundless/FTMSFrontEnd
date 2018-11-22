@@ -11,24 +11,19 @@ export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
         //Hard-coded work order ID and job ID. Want work order ID to be passed in as props of ReviewTimesheet component instance.
-        this.state = {workOrderID: 2, jobID: 0, jobs: 'No jobs.', employees: ['No employees.'], timesheet: ["No timesheet."]};
+        this.state = {workOrderID: 2, jobID: 0, employees: ['No employees.'], timesheet: ['No timesheet.']};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
 
     componentDidMount() {
-        fetch('/jobs/get_from_work_order_id/' + this.state.workOrderID)
+        fetch('/timesheets/get_pending_timesheets_from_work_order_id/' + this.state.workOrderID)
             .then(res => res.json())
-            .then(json => this.setState({ jobs: JSON.stringify(json).split("},").slice(0, 1).toString() }));
+            .then(json => this.setState({ timesheet: JSON.stringify(json).split("},").slice(0, 1) }));
 
         fetch('/employees/list')
             .then((res) => res.json())
             .then(json => this.setState({ employees: JSON.stringify(json).split("},") }));
-
-        let jobID = this.state.jobs.slice(this.state.jobs.search("jobID") + 7, this.state.jobs.search("workerID") - 2);
-        fetch('/timesheets/get_from_jobs_id/' + jobID)
-            .then(res => res.json())
-            .then(json => this.setState({ timesheet: JSON.stringify(json).split("},").slice(0, 1) }));
     }
 
     getWorkOrderID() {
@@ -38,10 +33,10 @@ export default class ReviewTimesheet extends Component {
 
     getWorkerName() {
         let i = 0;
-        if (this.state.jobs !== 'No jobs.' && this.state.employees) {
-            // First get worker ID from current job.
-            let id = this.state.jobs.slice(this.state.jobs.search("workerID") + 10,
-                this.state.jobs.search("supervisorID") - 2);
+        if (this.state.timesheet !== [] && this.state.employees) {
+            // First get worker ID from current timesheet.
+            let id = '1';//this.state.timesheets.slice(this.state.timesheets.search("workerID") + 10,
+                //this.state.timesheets.search("supervisorID") - 2);
 
             //Now find the name of the worker that matches that ID.
             for (i = 0; i < this.state.employees.length; i++) {
@@ -58,45 +53,49 @@ export default class ReviewTimesheet extends Component {
     }
 
     getStartTime() {
+        return this.state.timesheet[0].slice(
+            this.state.timesheet[0].search("start_time") + 12, this.state.timesheet[0].search("end_time") - 2)
+    }
 
+    getEndTime() {
+        return this.state.timesheet[0].slice(
+            this.state.timesheet[0].search("end_time") + 10, this.state.timesheet[0].search("timesheetId") - 2)
     }
 
     handleApproveClick = () => {
-        //Need to convert timesheetID to int because back-end approve method takes int parameter.
-        let timesheetID = parseInt(this.state.timesheets[1].slice(this.state.timesheets[1].search(":") + 1), 10);
         fetch('/timesheets/approve', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: timesheetID
+            body: this.state.timesheet[0].slice(this.state.timesheet[0].search("timesheetId") + 13,
+                this.state.timesheet[0].search("timeSubmitted") - 2) //this is timesheet id
         })
-            .then(alert('See http://localhost:8080/timesheets/list'))
+            .then(alert('Timesheet approved.'));
+
+        window.location.reload()
     }
 
     handleRejectClick = () => {
-        //Need to convert timesheetID to int because back-end approve method takes int parameter.
-        let timesheetID = parseInt(this.state.timesheets[1].slice(this.state.timesheets[1].search(":") + 1), 10);
         fetch('/timesheets/reject', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: timesheetID
+            body: this.state.timesheet[0].slice(this.state.timesheet[0].search("timesheetId") + 13,
+                this.state.timesheet[0].search("timeSubmitted") - 2)
         })
             .then(alert('See http://localhost:8080/timesheets/list'))
     }
 
      render() {
-        return (
-            //To-do: figure out how to get start time and end time from back-end.
-            //These values are currently hard-coded.
+        let pendingTimesheets = this.state.timesheet[0].search("timesheetId") !== -1;
+        return pendingTimesheets ? (
             <div>
-                <p>{this.state.jobs}</p>
-                <p>{this.state.employees}</p>
-                <p>{this.state.timesheet}</p>
+                <p>Employees: {this.state.employees}</p>
+                <p>Timesheets: {this.state.timesheet}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
@@ -104,9 +103,9 @@ export default class ReviewTimesheet extends Component {
                 <h2>Worker: {this.getWorkerName()}</h2>
 
                 <h3>
-                    Start Time: 12:00
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    End Time: 15:30
+                    Start Time: {this.getStartTime()}
+                    <br/>
+                    End Time: {this.getEndTime()}
                 </h3>
                 <br/> <br/>
 
@@ -118,6 +117,6 @@ export default class ReviewTimesheet extends Component {
                 <Button variant="contained" size="large" color="secondary.dark" onClick={this.handleRejectClick}>REJECT</Button>
 
             </div>
-        );
+        ) : <h1>No more timesheets to review.</h1>;
     }
 }
