@@ -2,11 +2,20 @@ import React, {Component} from 'react';
 
 import '../App.css';
 import TextField from '@material-ui/core/TextField';
+
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+
+
+
 import styleToImport from "../Utilities/Util";
 import Button from "@material-ui/core/Button/Button";
 
@@ -15,7 +24,7 @@ const chosenStyle = styleToImport.styleToImport;
 export default class SubmitTimesheet extends Component {
 
   state = {
-    job_id: '5',
+    job_id: '1',
     work_order_id: '2',
     worker_id: '',
     location: '',
@@ -53,6 +62,10 @@ export default class SubmitTimesheet extends Component {
         worker_id: json.worker_id
       }));
 
+    this.fetchTasks()
+  }
+
+  fetchTasks = () => {
     // Get tasks
     fetch('/task/get_from_jobs_id/' + this.state.job_id, {
       method: 'GET',
@@ -63,7 +76,7 @@ export default class SubmitTimesheet extends Component {
     })
       .then((res) => res.json())
       .then(json => this.setState({ taskList: json}));
-  }
+  };
 
   onSubmit = (event) => {
     event.preventDefault();
@@ -81,22 +94,92 @@ export default class SubmitTimesheet extends Component {
         end_time: this.state.end,
       })
     })
-      .then(alert(JSON.stringify(this.state)))
+      .then()
+  };
+
+  createTask = (event) => {
+    event.preventDefault();
+
+    fetch('/task/add', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        start_time: "",
+        end_time: "",
+        job_id: this.state.job_id,
+        name: ""
+      })
+    })
+      .then(() => this.fetchTasks())
+  };
+
+  deleteTask = (event) => {
+    fetch('/task/delete/', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+      })
+    })
+      .then(() => this.fetchTasks())
+  };
+
+  handleTask = input => event => {
+    this.setState({
+      [input]: event.target.value,
+    })
   };
 
   handleChangeText = input => event => {
     this.setState({
       [input]: event.target.value,
-    });
+    })
   };
 
   handlePanelOpen = input => event => {
     this.setState({
       [input]: event.target.value,
-    });
+    })
   };
 
   render() {
+    var tasks = this.state.taskList.map(function(task, i) {
+      return (
+        <TableRow key={i} style={chosenStyle}>
+          <TableCell className = "task title">
+            <TextField
+              id="task"
+              value={task.name}
+              //onChange={this.handleTask("taskList["+ i +"].name")}
+              style={{width: 100}}
+            />
+          </TableCell>
+          <TableCell className = "task start">
+            <TextField
+              id="task-time-start"
+              value={task.startTime}
+              //onChange={this.handleTask("taskList["+ i +"].startTime")}
+              type="datetime-local"
+              style={{width: 265}}
+            />
+          </TableCell>
+          <TableCell className = "task end">
+            <TextField
+              id="task-time-end"
+              value={task.endTime}
+              //onChange={this.handleTask("taskList["+ i +"].endTime")}
+              type="datetime-local"
+              style={{width: 265}}
+            />
+          </TableCell>
+        </TableRow>
+      );
+    });
 
     return (
       <div className="App">
@@ -148,8 +231,28 @@ export default class SubmitTimesheet extends Component {
               <text>Tasks</text>
             </ExpansionPanelSummary>
 
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails style={{
+                overflowX: 'scroll',
+                overflowY: 'hidden'
+              }}>
               <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Task Name</TableCell>
+                    <TableCell>Start Time</TableCell>
+                    <TableCell>End Time</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {tasks}
+                  <TableRow>
+                    <TableCell>
+                      <Button variant="contained" color="secondary" onClick={this.createTask}>
+                        +
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
               </Table>
             </ExpansionPanelDetails>
           </ExpansionPanel>
