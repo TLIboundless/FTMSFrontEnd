@@ -119,15 +119,13 @@ export default class SubmitTimesheet extends Component {
       });
   };
 
-  deleteTask = (event) => {
-    fetch('/task/delete/', {
+  deleteTask = (id) => {
+    fetch('/task/delete/' + id, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-      })
     })
       .then(() => this.fetchTasks())
   };
@@ -150,39 +148,46 @@ export default class SubmitTimesheet extends Component {
     })
   };
 
+  renderTasks = (task, i) => {
+    return (
+      <TableRow key={i} style={chosenStyle}>
+        <TableCell className = "task title">
+          <TextField
+            id="task"
+            value={task.name}
+            onChange={this.handleTask("taskList["+ i +"].name")}
+            style={{width: 100}}
+          />
+        </TableCell>
+        <TableCell className = "task start">
+          <TextField
+            id="task-time-start"
+            value={task.startTime}
+            onChange={this.handleTask("taskList["+ i +"].startTime")}
+            type="datetime-local"
+            style={{width: 265}}
+          />
+        </TableCell>
+        <TableCell className = "task end">
+          <TextField
+            id="task-time-end"
+            value={task.endTime}
+            onChange={this.handleTask("taskList["+ i +"].endTime")}
+            type="datetime-local"
+            style={{width: 265}}
+          />
+        </TableCell>
+        <TableCell className = "task delete">
+          <Button variant="contained" color="secondary" onClick={i => this.deleteTask}>
+            x
+          </Button>
+        </TableCell>
+      </TableRow>
+    );
+  };
+
   render() {
-    var tasks = this.state.taskList.map(function(task, i) {
-      return (
-        <TableRow key={i} style={chosenStyle}>
-          <TableCell className = "task title">
-            <TextField
-              id="task"
-              value={task.name}
-              //onChange={this.handleTask("taskList["+ i +"].name")}
-              style={{width: 100}}
-            />
-          </TableCell>
-          <TableCell className = "task start">
-            <TextField
-              id="task-time-start"
-              value={task.startTime}
-              //onChange={this.handleTask("taskList["+ i +"].startTime")}
-              type="datetime-local"
-              style={{width: 265}}
-            />
-          </TableCell>
-          <TableCell className = "task end">
-            <TextField
-              id="task-time-end"
-              value={task.endTime}
-              //onChange={this.handleTask("taskList["+ i +"].endTime")}
-              type="datetime-local"
-              style={{width: 265}}
-            />
-          </TableCell>
-        </TableRow>
-      );
-    });
+    const tasks = this.state.taskList.map(this.renderTasks, this);
 
     return (
       <div className="App">
