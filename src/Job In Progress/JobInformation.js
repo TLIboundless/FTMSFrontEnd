@@ -8,20 +8,62 @@ import styleToImport from '../Utilities/Util.js'
 const chosenStyle = styleToImport.styleToImport;
 
 export class JobInformation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {description: 'No description yet.', tasks: ['No tasks yet.'], parts: ['No parts yet.']}
+        this.handleDescriptionClick = this.handleDescriptionClick.bind(this);
+        this.handleTasksClick = this.handleTasksClick.bind(this);
+        this.handlePartsClick = this.handlePartsClick.bind(this);
+    }
+
+    componentDidMount() {
+        fetch('/work_orders/get_from_work_orders_id/' + this.props.workOrderID)
+            .then(res => res.json())
+            .then(json => this.setState({ description: JSON.stringify(json)}));
+
+        fetch('/task/get_from_jobs_id/' + this.props.jobID)
+            .then((res) => res.json())
+            .then(json => this.setState({ tasks: JSON.stringify(json).split("},") }));
+
+        //fetch('/parts/get_parts_from_job_id/' + this.props.jobID)
+        fetch('/parts/list')
+            .then((res) => res.json())
+            .then(json => this.setState({ parts: JSON.stringify(json).split("},") }));
+
+    }
 
     handleDescriptionClick() {
-        //Display job description. Need to get that info from backend.
-        alert("Need to get description from back-end.")
+        //Display job description.
+        alert('Job Description: ' + this.state.description.slice(this.state.description.search("description") + 14,
+            this.state.description.search("]") - 2))
     }
 
     handleTasksClick() {
-        //Display tasks. Need to get that info from backend.
-        alert("Need to get tasks from back-end.")
+        //Display tasks.
+        let s = "";
+        let i = 0;
+        for (i = 0; i < this.state.tasks.length; i++) {
+            s += 'Name: ' + this.state.tasks[i].slice(this.state.tasks[i].search("name") + 6,
+                this.state.tasks[i].search("startTime") - 2) + ', Duration: ' +
+                this.state.tasks[i].slice(this.state.tasks[i].search("duration") + 10,
+                this.state.tasks[i].search("name") - 2) + '\r'
+        }
+        alert('Tasks Completed: \r\r' + s)
     }
 
     handlePartsClick() {
-        //Display parts. Need to get that info from backend.
-        alert("Need to get parts from back-end.")
+        //Display parts.
+        let s = "";
+        let i = 0;
+        for (i = 0; i < this.state.parts.length; i++) {
+            s += 'Name: ' + this.state.parts[i].slice(this.state.parts[i].search("name") + 6,
+                this.state.parts[i].search("unit_price") - 2) + ', Unit Price: ' +
+                this.state.parts[i].slice(this.state.parts[i].search("unit_price") + 12,
+                    this.state.parts[i].search("quantity") - 2) + ', Quantity: ' +
+                this.state.parts[i].slice(this.state.parts[i].search("quantity") + 10,
+                    this.state.parts[i].search("job_id") - 2) + '\r'
+        }
+        alert('Parts: \r\r' + s)
     }
 
     render () {
