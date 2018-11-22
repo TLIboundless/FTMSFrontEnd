@@ -45,13 +45,13 @@ class App extends Component {
         </ListItem>
 
         <ListItem button onClick={this.changePage('/AssignJob')}>
-          <ListItemText primary="Assign to job employee" />
+          <ListItemText primary="Assign Employee to Job" />
         </ListItem>
         <ListItem button onClick={this.changePage('/DisplayOrderlists')}>
-            <ListItemText primary="Lists of orders" />
+            <ListItemText primary="List Orders" />
         </ListItem>
         <ListItem button onClick={this.changePage('/SubmitTimesheet')}>
-          <ListItemText primary="Submit timesheet" />
+          <ListItemText primary="Submit Timesheet" />
         </ListItem>
 
        {/* //This page should actually only be accessed when you choose to review
