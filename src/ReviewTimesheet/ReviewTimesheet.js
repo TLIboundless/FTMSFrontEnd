@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
 import {JobInformation} from "../Job In Progress/JobInformation";
 
 import Button from '@material-ui/core/Button';
-import styleToImport from '../Utilities/Util.js'
 
-const chosenStyle = styleToImport.styleToImport
+// This uses props value workOrderID which should be passed in when this page is called.
+// If you need to test this page without calling it in another page, assign workOrderID as a state value instead.
+// Just don't forget to change it back!
 
 export default class ReviewTimesheet extends Component {
     constructor(props) {
         super(props);
-        //Hard-coded work order ID and job ID. Want work order ID to be passed in as props of ReviewTimesheet component instance.
-        this.state = {workOrderID: 2, jobID: 0, employees: ['No employees.'], timesheet: ['No timesheet.']};
+        this.state = {employees: ['No employees.'], timesheet: ['No timesheet.']};
         this.handleApproveClick = this.handleApproveClick.bind(this);
         this.handleRejectClick = this.handleRejectClick.bind(this);
     }
 
     componentDidMount() {
-        fetch('/timesheets/get_pending_timesheets_from_work_order_id/' + this.state.workOrderID)
+        fetch('/timesheets/get_pending_timesheets_from_work_order_id/' + this.props.workOrderID)
             .then(res => res.json())
             .then(json => this.setState({ timesheet: JSON.stringify(json).split("},").slice(0, 1) }));
 
@@ -28,15 +27,16 @@ export default class ReviewTimesheet extends Component {
 
     getWorkOrderID() {
         //Return the work order ID for a given timesheet.
-        return this.state.workOrderID;
+        return this.props.workOrderID;
     }
 
     getWorkerName() {
+        //Use worker ID in timesheet to get corresponding worker name.
         let i = 0;
-        if (this.state.timesheet !== [] && this.state.employees) {
+        if (this.state.timesheet[0].search("timesheetId") !== -1 && this.state.employees) {
             // First get worker ID from current timesheet.
-            let id = '1';//this.state.timesheets.slice(this.state.timesheets.search("workerID") + 10,
-                //this.state.timesheets.search("supervisorID") - 2);
+            let id = this.state.timesheet[0].slice(this.state.timesheet[0].search("worker_id") + 11,
+                this.state.timesheet[0].search("start_time") - 2);
 
             //Now find the name of the worker that matches that ID.
             for (i = 0; i < this.state.employees.length; i++) {
@@ -59,7 +59,17 @@ export default class ReviewTimesheet extends Component {
 
     getEndTime() {
         return this.state.timesheet[0].slice(
-            this.state.timesheet[0].search("end_time") + 10, this.state.timesheet[0].search("timesheetId") - 2)
+            this.state.timesheet[0].search("end_time") + 10, this.state.timesheet[0].search("approvalStatus") - 2)
+    }
+
+    getTimesheetID() {
+        return this.state.timesheet[0].slice(this.state.timesheet[0].search("timesheetId") + 13,
+            this.state.timesheet[0].search("rejectionReason") - 2)
+    }
+
+    getJobID() {
+        return this.state.timesheet[0].slice(this.state.timesheet[0].search("jobId") + 7,
+            this.state.timesheet[0].search("timesheetId") - 2)
     }
 
     handleApproveClick = () => {
@@ -69,8 +79,7 @@ export default class ReviewTimesheet extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: this.state.timesheet[0].slice(this.state.timesheet[0].search("timesheetId") + 13,
-                this.state.timesheet[0].search("timeSubmitted") - 2) //this is timesheet id
+            body: this.getTimesheetID()
         })
             .then(alert('Timesheet approved.'));
 
@@ -84,22 +93,23 @@ export default class ReviewTimesheet extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: this.state.timesheet[0].slice(this.state.timesheet[0].search("timesheetId") + 13,
-                this.state.timesheet[0].search("timeSubmitted") - 2)
+            body: this.getTimesheetID()
         })
-            .then(alert('See http://localhost:8080/timesheets/list'))
+            .then(alert('Timesheet rejected.'));
+
+        window.location.reload()
     }
 
      render() {
         let pendingTimesheets = this.state.timesheet[0].search("timesheetId") !== -1;
         return pendingTimesheets ? (
             <div>
-                <p>Employees: {this.state.employees}</p>
-                <p>Timesheets: {this.state.timesheet}</p>
+                <p>{this.state.timesheet}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
                 <h2>Work Order ID: {this.getWorkOrderID()}</h2>
+                <h2>Timesheet ID: {this.getTimesheetID()}</h2>
                 <h2>Worker: {this.getWorkerName()}</h2>
 
                 <h3>
@@ -107,10 +117,9 @@ export default class ReviewTimesheet extends Component {
                     <br/>
                     End Time: {this.getEndTime()}
                 </h3>
-                <br/> <br/>
+                <br/>
 
-                <JobInformation workOrderID={this.state.workOrderID} jobID={this.state.jobID}/>
-                <br/> <br/>
+                <JobInformation workOrderID={this.props.workOrderID} jobID={this.getJobID()}/>
                 <br/> <br/>
                 <Button variant="contained" size="large" color="secondary" onClick={this.handleApproveClick}>APPROVE</Button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
