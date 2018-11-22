@@ -94,7 +94,7 @@ export default class SubmitTimesheet extends Component {
         end_time: this.state.end,
       })
     })
-      .then()
+      .then(alert(JSON.stringify(this.state)))
   };
 
   createTask = (event) => {
@@ -110,11 +110,13 @@ export default class SubmitTimesheet extends Component {
         start_time: "",
         end_time: "",
         duration: "",
-        job_id: this.state.job_id,
+        jobId: this.state.job_id,
         name: "New Task"
       })
     })
-      .then(() => this.fetchTasks())
+      .then(res => {
+        this.fetchTasks();
+      });
   };
 
   deleteTask = (event) => {
