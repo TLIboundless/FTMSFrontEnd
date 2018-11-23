@@ -33,19 +33,24 @@ export default class ReviewTimesheet extends Component {
     getWorkerName() {
         //Use worker ID in timesheet to get corresponding worker name.
         let i = 0;
+        let someEmployeeID = '';
+        let s = '';
+
         if (this.state.timesheet[0].search("timesheetId") !== -1 && this.state.employees) {
             // First get worker ID from current timesheet.
-            let id = this.state.timesheet[0].slice(this.state.timesheet[0].search("worker_id") + 11,
-                this.state.timesheet[0].search("start_time") - 2);
+            s = this.state.timesheet[0].slice(this.state.timesheet[0].search('worker_id'));
+            let id = s.slice(11, s.search(','));
 
             //Now find the name of the worker that matches that ID.
             for (i = 0; i < this.state.employees.length; i++) {
-                if (this.state.employees[i].slice(this.state.employees[i].search("id") + 4,
-                    this.state.employees[i].search("lastName") - 2) === id) {
-                    return this.state.employees[i].slice(this.state.employees[i].search("firstName") + 12,
-                        this.state.employees[i].search("email") - 3) + " " + this.state.employees[i].slice(
-                            this.state.employees[i].search("lastName") + 11,
-                        this.state.employees[i].search("firstName") - 3);
+                s = this.state.employees[i].slice(this.state.employees[i].search('id'));
+                someEmployeeID = s.slice(4, s.search(','));
+                if (someEmployeeID === id) {
+                    s = this.state.employees[i].slice(this.state.employees[i].search('firstName'));
+                    let firstName = s.slice(12, s.search(',') - 1);
+                    s = this.state.employees[i].slice(this.state.employees[i].search('lastName'));
+                    let lastName = s.slice(11, s.search(',') - 1);
+                    return firstName + ' ' + lastName;
                 }
             }
             return "No employee on file.";
@@ -53,23 +58,23 @@ export default class ReviewTimesheet extends Component {
     }
 
     getStartTime() {
-        return this.state.timesheet[0].slice(
-            this.state.timesheet[0].search("start_time") + 12, this.state.timesheet[0].search("end_time") - 2)
+        let s = this.state.timesheet[0].slice(this.state.timesheet[0].search('start_time'));
+        return s.slice(12, s.search(','));
     }
 
     getEndTime() {
-        return this.state.timesheet[0].slice(
-            this.state.timesheet[0].search("end_time") + 10, this.state.timesheet[0].search("approvalStatus") - 2)
+        let s = this.state.timesheet[0].slice(this.state.timesheet[0].search('end_time'));
+        return s.slice(10, s.search(','));
     }
 
     getTimesheetID() {
-        return this.state.timesheet[0].slice(this.state.timesheet[0].search("timesheetId") + 13,
-            this.state.timesheet[0].search("rejectionReason") - 2)
+        let s = this.state.timesheet[0].slice(this.state.timesheet[0].search('timesheetId'));
+        return s.slice(13, s.search(','));
     }
 
     getJobID() {
-        return this.state.timesheet[0].slice(this.state.timesheet[0].search("jobId") + 7,
-            this.state.timesheet[0].search("timesheetId") - 2)
+        let s = this.state.timesheet[0].slice(this.state.timesheet[0].search('jobId'));
+        return s.slice(7, s.search(','));
     }
 
     handleApproveClick = () => {
@@ -100,11 +105,10 @@ export default class ReviewTimesheet extends Component {
         window.location.reload()
     }
 
-     render() {
+    render() {
         let pendingTimesheets = this.state.timesheet[0].search("timesheetId") !== -1;
         return pendingTimesheets ? (
             <div>
-                <p>{this.state.timesheet}</p>
                 <h1>Review Timesheet</h1>
                 <br/>
 
